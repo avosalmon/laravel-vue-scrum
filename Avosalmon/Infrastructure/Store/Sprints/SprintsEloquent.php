@@ -14,20 +14,20 @@ class SprintsEloquent extends Model
     /**
      * Get users which are related to this product.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->hasMany('Avosalmon\Infrastructure\Store\Users\UsersEloquent', 'sprint_users', 'sprint_id', 'user_id');
+        return $this->belongsToMany('Avosalmon\Infrastructure\Store\Users\UsersEloquent', 'sprint_users', 'sprint_id', 'user_id');
     }
 
     /**
      * Get projects which are related to this product.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function projects()
     {
-        return $this->hasMany('Avosalmon\Infrastructure\Store\Projects\ProjectsEloquent', 'sprint_projects', 'sprint_id', 'project_id');
+        return $this->belongsToMany('Avosalmon\Infrastructure\Store\Projects\ProjectsEloquent', 'sprint_projects', 'sprint_id', 'project_id');
     }
 }

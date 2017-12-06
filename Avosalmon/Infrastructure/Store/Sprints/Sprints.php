@@ -82,4 +82,39 @@ class Sprints implements SprintsInterface
     {
         return $this->sprints->count();
     }
+
+    /**
+     * Get single sprint order with nested relationships
+     *
+     * @param  int $id
+     * @param  array $relationships
+     * @param  bool $throw
+     * @return \Illuminate\Database\Eloquent\Model|Collection|static
+     */
+    public function findWith($id, $relationships, $throw = false)
+    {
+        if (! $this->validateRelationships($relationships)) {
+            return null;
+        }
+        if ($throw) {
+            return $this->sprints->with($relationships)->findOrFail($id);
+        }
+        return $this->sprints->with($relationships)->find($id);
+    }
+
+    /**
+     * Validate relationships
+     *
+     * @param  array $relationships
+     * @return array|string|void
+     */
+    protected function validateRelationships($relationships)
+    {
+        foreach ($relationships as $relationship) {
+            if (! method_exists($this->sprints, explode('.', $relationship)[0])) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

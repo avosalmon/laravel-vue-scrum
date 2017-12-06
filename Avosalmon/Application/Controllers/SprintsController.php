@@ -76,16 +76,19 @@ class SprintsController extends Controller
      * Display the specified resource.
      *
      * @param int $id
+     * @param string $relationships
      * @return Response
      */
-    public function show($id)
+    public function showWith($id, $relationships)
     {
+        $relationships = explode(',', $relationships);
+
         $this->sprints->setOffset(0);
         $this->sprints->setLimit(1);
 
-        if ($store = $this->sprints->find($id)) {
+        if ($sprint = $this->sprints->findWith($id, $relationships)) {
             $meta = $this->generateResponseMeta($this->sprints, $total = 1);
-            return $this->response->json($this->formatResponse($type = 'sprint', $store, $meta));
+            return $this->response->json($this->formatResponse($type = 'sprint', $sprint, $meta));
         }
 
         return $this->response->json($data = [], 404);

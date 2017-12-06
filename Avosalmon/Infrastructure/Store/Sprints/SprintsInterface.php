@@ -75,4 +75,14 @@ interface SprintsInterface
      * @return \Illuminate\Database\Eloquent\Model|Collection|static
      */
     public function count();
+
+    /**
+     * Get single sprint order with nested relationships
+     *
+     * @param  int $id
+     * @param  array $relationships
+     * @param  bool $throw
+     * @return \Illuminate\Database\Eloquent\Model|Collection|static
+     */
+    public function findWith($id, $relationships, $throw = false);
 }

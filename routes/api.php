@@ -17,4 +17,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('/sprints', '\Avosalmon\Application\Controllers\SprintsController@index');
+Route::prefix('sprints')->group(function () {
+    Route::get('/',                          '\Avosalmon\Application\Controllers\SprintsController@index');
+    Route::get('/{id}/with/{relationships}', '\Avosalmon\Application\Controllers\SprintsController@showWith');
+});
