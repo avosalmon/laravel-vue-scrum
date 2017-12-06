@@ -22,7 +22,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Avosalmon\\": "Avosalmon/"
         }
     },
     "autoload-dev": {
