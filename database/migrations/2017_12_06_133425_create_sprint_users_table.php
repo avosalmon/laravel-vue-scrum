@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSprintUserResourcesTable extends Migration
+class CreateSprintUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSprintUserResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sprint_user_resources', function (Blueprint $table) {
+        Schema::create('sprint_users', function (Blueprint $table) {
             $table->integer('sprint_id');
             $table->integer('user_id');
             $table->integer('working_days')->defaults(10);
@@ -28,6 +28,6 @@ class CreateSprintUserResourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sprint_user_resources');
+        Schema::dropIfExists('sprint_users');
     }
 }
