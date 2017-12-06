@@ -1,0 +1,28 @@
+location = /robots.txt {
+    allow all;
+    log_not_found off;
+    access_log off;
+}
+
+location = /favicon.ico {
+    log_not_found off;
+    access_log off;
+}
+
+location = /health {
+    return 204;
+    log_not_found off;
+    access_log off;
+}
+
+location ~* \.(jpg|jpeg|png|gif|ico|css|js)$ {
+    access_log off;
+}
+
+location ~ /\. {
+    deny all;
+}
+
+location ~ \.php$ {
+    return 404;
+}

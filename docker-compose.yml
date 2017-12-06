@@ -1,0 +1,42 @@
+version: '3'
+services:
+  nginx:
+    image: oliverlundquist/nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/app/current:cached
+      - ./storage/docker/nginx/nginx-server.conf:/etc/nginx/conf.d/default.conf
+      - ./storage/docker/nginx/default_settings:/etc/nginx/includes/default_settings
+      - ./storage/docker/nginx/ssl:/etc/nginx/ssl
+    networks:
+      - php-app
+  php:
+    image: oliverlundquist/php7-opcache:latest
+    working_dir: /var/app/current
+    environment:
+      VALIDATE_TIMESTAMPS: 1
+    volumes:
+      - .:/var/app/current:cached
+    networks:
+      - php-app
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: scrum
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./storage/docker/mysql:/var/lib/mysql:cached
+    networks:
+      - php-app
+  redis:
+    # image: redis:2.8.24 # AWS version, not available on DockerHub anymore
+    image: redis:3.2.10
+    networks:
+      - php-app
+networks:
+  php-app:
+    driver: bridge
