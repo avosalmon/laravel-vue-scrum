@@ -17,4 +17,4 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('/sprints', 'SprintsController@index');
+Route::get('/sprints', '\Avosalmon\Application\Controllers\SprintsController@index');
