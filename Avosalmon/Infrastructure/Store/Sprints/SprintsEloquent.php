@@ -12,6 +12,13 @@ class SprintsEloquent extends Model
     protected $table = 'sprints';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Get users which are related to this product.
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsToMany

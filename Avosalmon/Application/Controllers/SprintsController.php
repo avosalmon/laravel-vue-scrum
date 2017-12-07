@@ -69,7 +69,21 @@ class SprintsController extends Controller
      */
     public function store()
     {
+        $this->sprints->setOffset(0);
+        $this->sprints->setLimit(1);
 
+        $input = $this->request->validate([
+            'start_date'         => 'required|date',
+            'end_date'           => 'required|date',
+            'available_resource' => 'required',
+            'available_points'   => 'required|integer',
+            'planned_points'     => 'required|integer'
+        ]);
+
+        $sprint = $this->sprints->create($input);
+        $meta   = $this->generateResponseMeta($this->sprints, $total = 1);
+
+        return $this->response->json($this->formatResponse($type = 'sprint', $sprint, $meta), 201);
     }
 
     /**
@@ -102,7 +116,20 @@ class SprintsController extends Controller
      */
     public function update($id)
     {
+        $input = $this->request->validate([
+            'start_date'       => 'date',
+            'end_date'         => 'date',
+            'available_points' => 'integer',
+            'planned_points'   => 'integer',
+            'actual_points'    => 'integer',
+            'logical_points'   => 'integer'
+        ]);
 
+        if ($this->sprints->update($id, $input)) {
+            return $this->response->json();
+        }
+
+        return $this->response->json([], 404);
     }
 
     /**
@@ -113,6 +140,10 @@ class SprintsController extends Controller
      */
     public function destroy($id)
     {
+        if ($this->sprints->destroy($id)) {
+            return $this->response->json();
+        }
 
+        return $this->response->json([], 404);
     }
 }

@@ -12,6 +12,13 @@ class ProjectsEloquent extends Model
     protected $table = 'projects';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Get sprint which are related to this project.
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsToMany

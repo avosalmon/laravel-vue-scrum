@@ -103,6 +103,31 @@ class Sprints implements SprintsInterface
     }
 
     /**
+     * Create a new sprint
+     *
+     * @param  array $data
+     * @return \Illuminate\Database\Eloquent\Model|Collection|static
+     */
+    public function create($data)
+    {
+        return $this->sprints->create($data);
+    }
+
+    /**
+     * Update the specified sprint
+     *
+     * @param  int $id
+     * @param  array $data
+     * @return bool
+     */
+    public function update($id, $data)
+    {
+        $sprint = $this->sprints->find($id);
+
+        return $sprint ? $sprint->update($data) : false;
+    }
+
+    /**
      * Validate relationships
      *
      * @param  array $relationships

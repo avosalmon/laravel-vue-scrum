@@ -85,4 +85,21 @@ interface SprintsInterface
      * @return \Illuminate\Database\Eloquent\Model|Collection|static
      */
     public function findWith($id, $relationships, $throw = false);
+
+    /**
+     * Create a new sprint
+     *
+     * @param  array $data
+     * @return \Illuminate\Database\Eloquent\Model|Collection|static
+     */
+    public function create($data);
+
+    /**
+     * Update the specified sprint
+     *
+     * @param  int $id
+     * @param  array $data
+     * @return bool
+     */
+    public function update($id, $data);
 }
