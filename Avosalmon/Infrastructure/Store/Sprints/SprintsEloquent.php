@@ -25,7 +25,7 @@ class SprintsEloquent extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('Avosalmon\Infrastructure\Store\Users\UsersEloquent', 'sprint_users', 'sprint_id', 'user_id');
+        return $this->belongsToMany('Avosalmon\Infrastructure\Store\Users\UsersEloquent', 'sprint_users', 'sprint_id', 'user_id')->withPivot(['working_days']);
     }
 
     /**
@@ -35,6 +35,11 @@ class SprintsEloquent extends Model
      */
     public function projects()
     {
-        return $this->belongsToMany('Avosalmon\Infrastructure\Store\Projects\ProjectsEloquent', 'sprint_projects', 'sprint_id', 'project_id');
+        return $this->belongsToMany(
+                    'Avosalmon\Infrastructure\Store\Projects\ProjectsEloquent',
+                    'sprint_projects',
+                    'sprint_id',
+                    'project_id'
+                )->withPivot(['planned_points', 'actual_points']);
     }
 }
