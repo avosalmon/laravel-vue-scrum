@@ -24,8 +24,8 @@ Route::prefix('sprints')->group(function () {
     Route::get('/{id}/with/{relationships}',          '\Avosalmon\Application\Controllers\SprintsController@showWith');
     Route::post('/{sprint_id}/users/{user_id}',       '\Avosalmon\Application\Controllers\SprintUsersController@store');
     Route::put('/{sprint_id}/users/{user_id}',        '\Avosalmon\Application\Controllers\SprintUsersController@update');
-    // Route::post('/{sprint_id}/projects/{project_id}', '\Avosalmon\Application\Controllers\SprintProjectsController@store');
-    // Route::put('/{sprint_id}/projects/{project_id}',  '\Avosalmon\Application\Controllers\SprintProjectsController@update');
+    Route::post('/{sprint_id}/projects/{project_id}', '\Avosalmon\Application\Controllers\SprintProjectsController@store');
+    Route::put('/{sprint_id}/projects/{project_id}',  '\Avosalmon\Application\Controllers\SprintProjectsController@update');
 });
 
 // Route::prefix('users')->group(function () {

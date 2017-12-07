@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use Avosalmon\Infrastructure\Store\Sprints\Sprints;
+use Avosalmon\Infrastructure\Store\Sprints\SprintProjects;
 use Avosalmon\Infrastructure\Store\Sprints\SprintUsers;
 use Avosalmon\Infrastructure\Store\Sprints\SprintsEloquent;
 
@@ -27,6 +28,13 @@ class StoreServiceProvider extends ServiceProvider
         $this->app->bind('Avosalmon\Infrastructure\Store\Sprints\SprintsInterface', function () {
             return new Sprints(
                 new SprintsEloquent
+            );
+        });
+
+        $this->app->bind('Avosalmon\Infrastructure\Store\Sprints\SprintProjectsInterface', function () {
+            return new SprintProjects(
+                new SprintsEloquent,
+                app('db')
             );
         });
 
