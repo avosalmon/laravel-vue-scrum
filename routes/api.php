@@ -28,9 +28,9 @@ Route::prefix('sprints')->group(function () {
     Route::put('/{sprint_id}/projects/{project_id}',  '\Avosalmon\Application\Controllers\SprintProjectsController@update');
 });
 
-// Route::prefix('users')->group(function () {
-//     Route::get('/', '\Avosalmon\Application\Controllers\UsersController@index');
-// });
+Route::prefix('users')->group(function () {
+    Route::get('/', '\Avosalmon\Application\Controllers\UsersController@index');
+});
 
 // Route::prefix('projects')->group(function () {
 //     Route::get('/', '\Avosalmon\Application\Controllers\ProjectsController@index');

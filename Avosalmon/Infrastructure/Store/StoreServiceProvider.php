@@ -5,6 +5,8 @@ use Avosalmon\Infrastructure\Store\Sprints\Sprints;
 use Avosalmon\Infrastructure\Store\Sprints\SprintProjects;
 use Avosalmon\Infrastructure\Store\Sprints\SprintUsers;
 use Avosalmon\Infrastructure\Store\Sprints\SprintsEloquent;
+use Avosalmon\Infrastructure\Store\Users\Users;
+use Avosalmon\Infrastructure\Store\Users\UsersEloquent;
 
 class StoreServiceProvider extends ServiceProvider
 {
@@ -42,6 +44,12 @@ class StoreServiceProvider extends ServiceProvider
             return new SprintUsers(
                 new SprintsEloquent,
                 app('db')
+            );
+        });
+
+        $this->app->bind('Avosalmon\Infrastructure\Store\Users\UsersInterface', function () {
+            return new Users(
+                new UsersEloquent
             );
         });
     }
