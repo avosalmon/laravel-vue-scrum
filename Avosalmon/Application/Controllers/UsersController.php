@@ -32,7 +32,7 @@ class UsersController extends Controller
      * Create new instances for dependencies.
      *
      * @param Illuminate\Http\Request $request
-     * @param Illuminate\Contracts\Routing\ResponseFactory;
+     * @param Illuminate\Contracts\Routing\ResponseFactory $response
      * @param Avosalmon\Infrastructure\Store\Users\UsersInterface $users
      * @return void
      */
@@ -57,7 +57,7 @@ class UsersController extends Controller
 
         $users = $this->users->all();
         $total = $this->users->count();
-        $meta = $this->generateResponseMeta($this->users, $total);
+        $meta  = $this->generateResponseMeta($this->users, $total);
 
         return $this->response->json($this->formatResponse($type = 'users', $users, $meta));
     }

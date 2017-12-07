@@ -1,6 +1,8 @@
 <?php namespace Avosalmon\Infrastructure\Store;
 
 use Illuminate\Support\ServiceProvider;
+use Avosalmon\Infrastructure\Store\Projects\Projects;
+use Avosalmon\Infrastructure\Store\Projects\ProjectsEloquent;
 use Avosalmon\Infrastructure\Store\Sprints\Sprints;
 use Avosalmon\Infrastructure\Store\Sprints\SprintProjects;
 use Avosalmon\Infrastructure\Store\Sprints\SprintUsers;
@@ -27,6 +29,12 @@ class StoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('Avosalmon\Infrastructure\Store\Projects\ProjectsInterface', function () {
+            return new Projects(
+                new ProjectsEloquent
+            );
+        });
+
         $this->app->bind('Avosalmon\Infrastructure\Store\Sprints\SprintsInterface', function () {
             return new Sprints(
                 new SprintsEloquent

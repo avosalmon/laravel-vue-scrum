@@ -32,6 +32,6 @@ Route::prefix('users')->group(function () {
     Route::get('/', '\Avosalmon\Application\Controllers\UsersController@index');
 });
 
-// Route::prefix('projects')->group(function () {
-//     Route::get('/', '\Avosalmon\Application\Controllers\ProjectsController@index');
-// });
+Route::prefix('projects')->group(function () {
+    Route::get('/', '\Avosalmon\Application\Controllers\ProjectsController@index');
+});
