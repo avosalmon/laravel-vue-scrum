@@ -12,9 +12,10 @@
     },
     "dependencies": {
         "axios": "^0.17",
+        "jquery": "^3.2",
         "vue": "^2.5.7",
-        "vue-router": "^3.0.1",
-        "jquery": "^3.2"
+        "vue-material": "^0.8.1",
+        "vue-router": "^3.0.1"
     },
     "devDependencies": {
         "commitizen": "^2.9.6",
