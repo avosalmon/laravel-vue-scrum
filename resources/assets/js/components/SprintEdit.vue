@@ -1,6 +1,22 @@
 <template>
   <div>
-    Sprint ID: {{ sprint.id }}
+    <form name="form">
+      <div class="row">
+        <div class="form-element">
+          <label for="start-date">Start Date</label>
+          <input type="text" id="start-date" class="form-control" v-model="sprint.start_date" />
+        </div>
+        <div class="form-element">
+          <label for="end-date">End Date</label>
+          <input type="text" id="end-date" class="form-control" v-model="sprint.end_date" />
+        </div>
+      </div>
+      <div class="form-navigation">
+        <button class="btn btn-lg" @click.prevent="updateSprint">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -28,7 +44,7 @@ export default {
     },
 
     updateSprint() {
-
+      router.push('/sprints')
     }
   }
 };

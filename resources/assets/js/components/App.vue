@@ -8,3 +8,9 @@
     </div>
   </div>
 </template>
+
+<style lang="scss">
+header {
+  padding: 0 15%;
+}
+</style>

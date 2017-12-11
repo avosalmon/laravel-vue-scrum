@@ -2089,6 +2089,7 @@ pre code {
 .col-xs-6,
 .col-sm-6,
 .col-md-6,
+.form-element,
 .col-lg-6,
 .col-xs-7,
 .col-sm-7,
@@ -2112,6 +2113,7 @@ pre code {
 .col-lg-11,
 .col-xs-12,
 .col-sm-12,
+.form-element,
 .col-md-12,
 .col-lg-12 {
   position: relative;
@@ -2351,7 +2353,8 @@ pre code {
   .col-sm-9,
   .col-sm-10,
   .col-sm-11,
-  .col-sm-12 {
+  .col-sm-12,
+  .form-element {
     float: left;
   }
 
@@ -2399,7 +2402,8 @@ pre code {
     width: 91.66666667%;
   }
 
-  .col-sm-12 {
+  .col-sm-12,
+  .form-element {
     width: 100%;
   }
 
@@ -2567,6 +2571,7 @@ pre code {
   .col-md-4,
   .col-md-5,
   .col-md-6,
+  .form-element,
   .col-md-7,
   .col-md-8,
   .col-md-9,
@@ -2596,7 +2601,8 @@ pre code {
     width: 41.66666667%;
   }
 
-  .col-md-6 {
+  .col-md-6,
+  .form-element {
     width: 50%;
   }
 
@@ -3471,7 +3477,8 @@ input[type="search"] {
   }
 }
 
-.form-group {
+.form-group,
+.form-element {
   margin-bottom: 15px;
 }
 
@@ -3844,7 +3851,8 @@ select[multiple].input-lg,
 }
 
 @media (min-width: 768px) {
-  .form-inline .form-group {
+  .form-inline .form-group,
+  .form-inline .form-element {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -3918,18 +3926,22 @@ select[multiple].input-lg,
   min-height: 29px;
 }
 
-.form-horizontal .form-group {
+.form-horizontal .form-group,
+.form-horizontal .form-element {
   margin-left: -15px;
   margin-right: -15px;
 }
 
 .form-horizontal .form-group:before,
-.form-horizontal .form-group:after {
+.form-horizontal .form-element:before,
+.form-horizontal .form-group:after,
+.form-horizontal .form-element:after {
   content: " ";
   display: table;
 }
 
-.form-horizontal .form-group:after {
+.form-horizontal .form-group:after,
+.form-horizontal .form-element:after {
   clear: both;
 }
 
@@ -5545,7 +5557,8 @@ tbody.collapse.in {
 }
 
 @media (min-width: 768px) {
-  .navbar-form .form-group {
+  .navbar-form .form-group,
+  .navbar-form .form-element {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -5606,11 +5619,13 @@ tbody.collapse.in {
 }
 
 @media (max-width: 767px) {
-  .navbar-form .form-group {
+  .navbar-form .form-group,
+  .navbar-form .form-element {
     margin-bottom: 5px;
   }
 
-  .navbar-form .form-group:last-child {
+  .navbar-form .form-group:last-child,
+  .navbar-form .form-element:last-child {
     margin-bottom: 0;
   }
 }
@@ -8348,6 +8363,20 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin: 40px 0;
+  padding: 0 15%;
+}
+
+.form-navigation {
+  text-align: center;
+  margin-top: 30px;
 }
 
 th,
