@@ -1,5 +1,6 @@
 <template>
   <div>
+    <section>Velocity {{ velocity }}</section>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -41,7 +42,8 @@ import sprint from '../services/sprint-service'
 export default {
   data () {
     return {
-      sprints: []
+      sprints: [],
+      velocity: null
     }
   },
 
@@ -53,7 +55,28 @@ export default {
     fetchSprints() {
       sprint.all().then(response => {
         this.sprints = response.data.sprints
+        this.calculateVelocity()
       })
+    },
+
+    calculateVelocity() {
+      let total = 0
+      let count = 0
+
+      for (const sprint of this.sprints) {
+        if (count > 2) {
+          break
+        }
+
+        if (!sprint.logical_points) {
+          continue
+        }
+
+        total += sprint.logical_points
+        count ++
+      }
+
+      this.velocity = Math.round(total / count)
     }
   }
 };

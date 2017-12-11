@@ -46058,13 +46058,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      sprints: []
+      sprints: [],
+      velocity: null
     };
   },
   mounted: function mounted() {
@@ -46078,7 +46080,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       __WEBPACK_IMPORTED_MODULE_0__services_sprint_service__["a" /* default */].all().then(function (response) {
         _this.sprints = response.data.sprints;
+        _this.calculateVelocity();
       });
+    },
+    calculateVelocity: function calculateVelocity() {
+      var total = 0;
+      var count = 0;
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.sprints[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var _sprint = _step.value;
+
+          console.log(_sprint.id);
+
+          if (count > 2) {
+            break;
+          }
+
+          if (!_sprint.logical_points) {
+            continue;
+          }
+
+          total += _sprint.logical_points;
+          count++;
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      this.velocity = Math.round(total / count);
     }
   }
 });
@@ -46130,6 +46175,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("section", [_vm._v("Velocity " + _vm._s(_vm.velocity))]),
+    _vm._v(" "),
     _c("table", { staticClass: "table table-hover" }, [
       _vm._m(0, false, false),
       _vm._v(" "),
