@@ -8350,3 +8350,8 @@ button.close {
   }
 }
 
+th,
+td {
+  text-align: center;
+}
+
