@@ -11,6 +11,7 @@
           <th>Planned Points</th>
           <th>Actual Points</th>
           <th>Logical Points</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,11 @@
           <td>{{ sprint.planned_points }}</td>
           <td>{{ sprint.actual_points }}</td>
           <td>{{ sprint.logical_points }}</td>
+          <td>
+            <router-link :to="'/sprints/' + sprint.id">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </router-link>
+          </td>
         </tr>
       </tbody>
     </table>

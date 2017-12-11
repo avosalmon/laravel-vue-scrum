@@ -7,20 +7,20 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/sprints',
       component: require('./components/SprintList.vue')
     },
     // {
     //     path: '/create',
     //     component: require('./components/SprintCreate.vue')
     // },
-    // {
-    //     path: '/edit/:id',
-    //     component: require('./components/SprintEdit.vue')
-    // },
+    {
+        path: '/sprints/:id',
+        component: require('./components/SprintEdit.vue')
+    },
     {
       path: '*',
-      redirect: '/'
+      redirect: '/sprints'
     }
   ]
 })
