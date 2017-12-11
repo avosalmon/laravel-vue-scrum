@@ -18,8 +18,8 @@ import App from './components/App'
 import router from './router';
 
 const app = new Vue({
-    el: '#app',
-    router,
-    template: '<App/>',
-    components: { App }
+  el: '#app',
+  router,
+  template: '<App/>',
+  components: { App }
 });
