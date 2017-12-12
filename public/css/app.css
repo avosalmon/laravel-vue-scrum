@@ -142,44 +142,7 @@ body {
   color: #2c3e50;
 }
 
-.table-wrapper {
-  padding: 20px 0;
-  overflow-x: scroll;
-  max-height: 75vh;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table tbody tr.clickable {
+table tr.clickable {
   cursor: pointer;
-}
-
-table tbody tr:hover {
-  background: #ddd;
-}
-
-table th,
-table td {
-  padding: 20px 10px;
-  white-space: nowrap;
-  text-align: center;
-}
-
-table th.text-wrap,
-table td.text-wrap {
-  white-space: normal;
-}
-
-table th {
-  color: #808080;
-  font-weight: bold;
-  border: none;
-}
-
-table td {
-  border-top: 1px solid #ddd;
 }
 

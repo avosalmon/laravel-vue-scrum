@@ -70643,6 +70643,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -70666,7 +70676,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
-    openDetail: function openDetail(sprint) {
+    openEditDialog: function openEditDialog(sprint) {
       this.$refs.sprintEdit.open(sprint);
     },
     fetchSprints: function fetchSprints() {
@@ -70817,6 +70827,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -70825,7 +70852,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
-      sprint: {}
+      sprint: {},
+      dialogVisible: false,
+      formLabelWidth: '120px',
+      form: {}
     };
   },
 
@@ -70840,10 +70870,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     open: function open(sprint) {
       this.sprint = sprint;
-      // this.$refs.dialog.open()
+      this.dialogVisible = true;
     },
     close: function close() {
-      // this.$refs.dialog.close()
+      this.dialogVisible = false;
     }
   }
 });
@@ -70856,7 +70886,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "el-dialog",
+    {
+      attrs: { title: "Edit Sprint", visible: _vm.dialogVisible },
+      on: {
+        "update:visible": function($event) {
+          _vm.dialogVisible = $event
+        }
+      }
+    },
+    [_vm._v("\n  ID:" + _vm._s(_vm.sprint.id) + "\n  ")]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -70881,78 +70922,60 @@ var render = function() {
     [
       _c("section", [_vm._v("Velocity " + _vm._s(_vm.velocity))]),
       _vm._v(" "),
-      _c("div", { staticClass: "table-wrapper" }, [
-        _c("table", [
-          _vm._m(0, false, false),
+      _c(
+        "el-table",
+        {
+          staticStyle: { width: "100%" },
+          attrs: { data: _vm.sprints, "row-class-name": "clickable" },
+          on: {
+            "row-click": function($event) {
+              _vm.openEditDialog($event)
+            }
+          }
+        },
+        [
+          _c("el-table-column", { attrs: { prop: "id", label: "ID" } }),
           _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.sprints, function(sprint) {
-              return _c(
-                "tr",
-                {
-                  key: sprint.id,
-                  staticClass: "clickable",
-                  on: {
-                    click: function($event) {
-                      _vm.openDetail(sprint)
-                    }
-                  }
-                },
-                [
-                  _c("td", [_vm._v(_vm._s(sprint.id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(sprint.start_date))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(sprint.end_date))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(sprint.available_resource))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(sprint.available_points))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(sprint.planned_points))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(sprint.actual_points))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(sprint.logical_points))])
-                ]
-              )
-            })
-          )
-        ])
-      ]),
+          _c("el-table-column", {
+            attrs: { prop: "start_date", label: "Start Date" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "end_date", label: "End Date" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "available_resource",
+              label: "Available Resource (%)"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "available_points", label: "Available Points" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "planned_points", label: "Planned Points" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "actual_points", label: "Actual Points" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { prop: "logical_points", label: "Logical Points" }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("sprint-edit", { ref: "sprintEdit" })
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Start Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("End Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Available Resource (%)")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Available Points")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Planned Points")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actual Points")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Logical Points")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
