@@ -10,11 +10,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 /**
- * Import Vue Material
+ * Import Element
  */
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.css'
-Vue.use(VueMaterial)
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
