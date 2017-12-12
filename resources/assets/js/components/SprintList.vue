@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="sprint in sprints" :key="sprint.id" class="clickable">
+          <tr v-for="sprint in sprints" :key="sprint.id" class="clickable" @click="openDetail(sprint)">
             <td>{{ sprint.id }}</td>
             <td>{{ sprint.start_date }}</td>
             <td>{{ sprint.end_date }}</td>
@@ -29,11 +29,13 @@
         </tbody>
       </table>
     </div>
+    <sprint-edit ref="sprintEdit"></sprint-edit>
   </div>
 </template>
 
 <script>
 import sprint from '../services/sprint-service'
+import SprintEditComponent from './SprintEdit.vue'
 
 export default {
   data () {
@@ -43,11 +45,19 @@ export default {
     }
   },
 
+  components: {
+    'sprint-edit': SprintEditComponent
+  },
+
   mounted() {
     this.fetchSprints()
   },
 
   methods: {
+    openDetail(sprint) {
+      this.$refs.sprintEdit.open(sprint)
+    },
+
     fetchSprints() {
       sprint.all().then(response => {
         this.sprints = response.data.sprints
