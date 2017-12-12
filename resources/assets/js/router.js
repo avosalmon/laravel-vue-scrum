@@ -10,14 +10,6 @@ export default new Router({
       path: '/sprints',
       component: require('./components/SprintList.vue')
     },
-    // {
-    //     path: '/create',
-    //     component: require('./components/SprintCreate.vue')
-    // },
-    {
-        path: '/sprints/:id',
-        component: require('./components/SprintEdit.vue')
-    },
     {
       path: '*',
       redirect: '/sprints'
