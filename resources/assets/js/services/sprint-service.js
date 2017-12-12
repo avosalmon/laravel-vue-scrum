@@ -2,7 +2,7 @@ import http from './http'
 
 const endpoint = '/api/sprints'
 
-let defaultParams = {
+const defaultParams = {
   offset: 0,
   limit: 10,
   sort: 'id',
