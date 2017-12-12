@@ -1,28 +1,34 @@
 <template>
   <div>
     <section>Velocity {{ velocity }}</section>
-    <md-table md-card>
-      <md-table-row>
-        <md-table-head md-numeric>ID</md-table-head>
-        <md-table-head>Start Date</md-table-head>
-        <md-table-head>End Date</md-table-head>
-        <md-table-head md-numeric>Available Resource (%)</md-table-head>
-        <md-table-head md-numeric>Available Points</md-table-head>
-        <md-table-head md-numeric>Planned Points</md-table-head>
-        <md-table-head md-numeric>Actual Points</md-table-head>
-        <md-table-head md-numeric>Logical Points</md-table-head>
-      </md-table-row>
-      <md-table-row v-for="sprint in sprints">
-        <md-table-cell md-numeric>{{ sprint.id }}</md-table-cell>
-        <md-table-cell>{{ sprint.start_date }}</md-table-cell>
-        <md-table-cell>{{ sprint.end_date }}</md-table-cell>
-        <md-table-cell md-numeric>{{ sprint.available_resource }}</md-table-cell>
-        <md-table-cell md-numeric>{{ sprint.available_points }}</md-table-cell>
-        <md-table-cell md-numeric>{{ sprint.planned_points }}</md-table-cell>
-        <md-table-cell md-numeric>{{ sprint.actual_points }}</md-table-cell>
-        <md-table-cell md-numeric>{{ sprint.logical_points }}</md-table-cell>
-      </md-table-row>
-    </md-table>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Available Resource (%)</th>
+            <th>Available Points</th>
+            <th>Planned Points</th>
+            <th>Actual Points</th>
+            <th>Logical Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="sprint in sprints" :key="sprint.id" class="clickable">
+            <td>{{ sprint.id }}</td>
+            <td>{{ sprint.start_date }}</td>
+            <td>{{ sprint.end_date }}</td>
+            <td>{{ sprint.available_resource }}</td>
+            <td>{{ sprint.available_points }}</td>
+            <td>{{ sprint.planned_points }}</td>
+            <td>{{ sprint.actual_points }}</td>
+            <td>{{ sprint.logical_points }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

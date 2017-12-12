@@ -13,8 +13,8 @@ window.Vue = require('vue');
  * Import Vue Material
  */
 import VueMaterial from 'vue-material'
-Vue.use(VueMaterial)
 import 'vue-material/dist/vue-material.css'
+Vue.use(VueMaterial)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

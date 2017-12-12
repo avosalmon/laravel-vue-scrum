@@ -1,0 +1,40 @@
+.table-wrapper {
+  padding: 20px 0;
+  overflow-x: scroll;
+  max-height: 75vh;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  tbody tr {
+    &.clickable {
+      cursor: pointer;
+    }
+
+    &:hover {
+      background: $gray-light;
+    }
+  }
+
+  th, td {
+    padding: 20px 10px;
+    white-space: nowrap;
+    text-align: left;
+
+    &.text-wrap {
+      white-space: normal;
+    }
+  }
+
+  th {
+    color: $gray;
+    font-weight: bold;
+    border: none;
+  }
+
+  td {
+    border-top: 1px solid $gray-light;
+  }
+}

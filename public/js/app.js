@@ -11914,8 +11914,8 @@ window.Vue = __webpack_require__(3);
  * Import Vue Material
  */
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
 
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43889,6 +43889,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -44002,92 +44008,65 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("section", [_vm._v("Velocity " + _vm._s(_vm.velocity))]),
-      _vm._v(" "),
-      _c(
-        "md-table",
-        { attrs: { "md-card": "" } },
-        [
-          _c(
-            "md-table-row",
-            [
-              _c("md-table-head", { attrs: { "md-numeric": "" } }, [
-                _vm._v("ID")
-              ]),
-              _vm._v(" "),
-              _c("md-table-head", [_vm._v("Start Date")]),
-              _vm._v(" "),
-              _c("md-table-head", [_vm._v("End Date")]),
-              _vm._v(" "),
-              _c("md-table-head", { attrs: { "md-numeric": "" } }, [
-                _vm._v("Available Resource (%)")
-              ]),
-              _vm._v(" "),
-              _c("md-table-head", { attrs: { "md-numeric": "" } }, [
-                _vm._v("Available Points")
-              ]),
-              _vm._v(" "),
-              _c("md-table-head", { attrs: { "md-numeric": "" } }, [
-                _vm._v("Planned Points")
-              ]),
-              _vm._v(" "),
-              _c("md-table-head", { attrs: { "md-numeric": "" } }, [
-                _vm._v("Actual Points")
-              ]),
-              _vm._v(" "),
-              _c("md-table-head", { attrs: { "md-numeric": "" } }, [
-                _vm._v("Logical Points")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
+  return _c("div", [
+    _c("section", [_vm._v("Velocity " + _vm._s(_vm.velocity))]),
+    _vm._v(" "),
+    _c("div", { staticClass: "table-wrapper" }, [
+      _c("table", [
+        _vm._m(0, false, false),
+        _vm._v(" "),
+        _c(
+          "tbody",
           _vm._l(_vm.sprints, function(sprint) {
-            return _c(
-              "md-table-row",
-              [
-                _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(sprint.id))
-                ]),
-                _vm._v(" "),
-                _c("md-table-cell", [_vm._v(_vm._s(sprint.start_date))]),
-                _vm._v(" "),
-                _c("md-table-cell", [_vm._v(_vm._s(sprint.end_date))]),
-                _vm._v(" "),
-                _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(sprint.available_resource))
-                ]),
-                _vm._v(" "),
-                _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(sprint.available_points))
-                ]),
-                _vm._v(" "),
-                _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(sprint.planned_points))
-                ]),
-                _vm._v(" "),
-                _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(sprint.actual_points))
-                ]),
-                _vm._v(" "),
-                _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(sprint.logical_points))
-                ])
-              ],
-              1
-            )
+            return _c("tr", { key: sprint.id, staticClass: "clickable" }, [
+              _c("td", [_vm._v(_vm._s(sprint.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(sprint.start_date))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(sprint.end_date))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(sprint.available_resource))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(sprint.available_points))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(sprint.planned_points))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(sprint.actual_points))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(sprint.logical_points))])
+            ])
           })
-        ],
-        2
-      )
-    ],
-    1
-  )
+        )
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Start Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("End Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Available Resource (%)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Available Points")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Planned Points")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actual Points")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Logical Points")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
