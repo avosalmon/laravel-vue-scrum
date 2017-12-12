@@ -27,7 +27,9 @@
           <td>{{ sprint.logical_points }}</td>
           <td>
             <router-link :to="'/sprints/' + sprint.id">
-              <span class="glyphicon glyphicon-pencil"></span>
+              <md-button class="md-icon-button">
+                <md-icon>mode_edit</md-icon>
+              </md-button>
             </router-link>
           </td>
         </tr>
