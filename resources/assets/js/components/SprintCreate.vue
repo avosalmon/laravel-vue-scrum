@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Edit Sprint" :visible.sync="dialogVisible" :before-close="handleClose">
+  <el-dialog title="Create New Sprint" :visible.sync="dialogVisible" :before-close="handleClose">
     <el-date-picker
       v-model="dates"
       type="daterange"
@@ -9,7 +9,7 @@
     </el-date-picker>
     <div slot="footer" class="dialog-footer">
       <el-button @click="close">CANCEL</el-button>
-      <el-button type="primary" @click="update">SAVE</el-button>
+      <el-button type="primary" @click="create">CREATE</el-button>
     </div>
   </el-dialog>
 </template>
@@ -18,7 +18,7 @@
 import sprint from '../services/sprint-service'
 
 export default {
-  name: 'sprint-edit',
+  name: 'sprint-create',
 
   data () {
     return {
@@ -31,18 +31,13 @@ export default {
   },
 
   methods: {
-    update() {
-      sprint.update(this.sprint.id, this.sprint).then(response => {
+    create() {
+      sprint.create(this.sprint).then(response => {
         this.close()
       })
     },
 
-    open(sprint) {
-      this.sprint = sprint
-      this.dates = [
-        this.sprint.start_date,
-        this.sprint.end_date
-      ]
+    open() {
       this.dialogVisible = true
     },
 

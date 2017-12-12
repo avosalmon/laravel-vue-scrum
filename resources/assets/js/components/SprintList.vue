@@ -1,6 +1,14 @@
 <template>
   <div>
-    <section>Velocity {{ velocity }}</section>
+    <section class="menu-section">
+      <div class="velocity">
+        <span class="label">Velocity</span>
+        <span class="value">{{ velocity }}</span>
+      </div>
+      <div>
+        <el-button type="primary" icon="el-icon-plus" @click="openCreateDialog"></el-button>
+      </div>
+    </section>
     <el-table
       :data="sprints"
       row-class-name="clickable"
@@ -39,12 +47,14 @@
         label="Logical Points">
       </el-table-column>
     </el-table>
+    <sprint-create ref="sprintCreate"></sprint-create>
     <sprint-edit ref="sprintEdit"></sprint-edit>
   </div>
 </template>
 
 <script>
 import sprint from '../services/sprint-service'
+import SprintCreateComponent from './SprintCreate.vue'
 import SprintEditComponent from './SprintEdit.vue'
 
 export default {
@@ -56,6 +66,7 @@ export default {
   },
 
   components: {
+    'sprint-create': SprintCreateComponent,
     'sprint-edit': SprintEditComponent
   },
 
@@ -64,6 +75,10 @@ export default {
   },
 
   methods: {
+    openCreateDialog() {
+      this.$refs.sprintCreate.open()
+    },
+
     openEditDialog(sprint) {
       this.$refs.sprintEdit.open(sprint)
     },
@@ -97,3 +112,24 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import "../../sass/variables";
+
+.menu-section {
+  display: flex;
+  justify-content: space-between;
+}
+.velocity {
+  font-weight: 600;
+  .label {
+
+  }
+  .value {
+    background: #40B883;
+    color: $white;
+    border-radius: 50%;
+    padding: 5px;
+  }
+}
+</style>
