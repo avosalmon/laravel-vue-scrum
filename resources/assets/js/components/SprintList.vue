@@ -2,11 +2,8 @@
   <div>
     <fab icon="plus" @click.native="openCreateDialog"></fab>
     <div class="velocity">
-      <el-badge :value="velocity" class="item">
-        <h2>Velocity</h2>
-      </el-badge>
-      <!-- <span class="label">Velocity</span>
-      <span class="value">{{ velocity }}</span> -->
+      <span class="label">Team's Velocity</span>
+      <span class="value">{{ velocity }}</span>
     </div>
     <el-table
       :data="sprints"
@@ -123,15 +120,20 @@ export default {
 }
 
 .velocity {
-  font-weight: 600;
   .label {
-
+    font-weight: 600;
+    font-size: 18px;
+    margin-right: 5px;
   }
   .value {
+    display: inline-block;
     background: #40B883;
     color: $white;
     border-radius: 50%;
-    padding: 5px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
   }
 }
 

@@ -70797,7 +70797,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, "\n.menu-section[data-v-b6a9a962] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.velocity[data-v-b6a9a962] {\n  font-weight: 600;\n}\n.velocity .value[data-v-b6a9a962] {\n    background: #40B883;\n    color: #fff;\n    border-radius: 50%;\n    padding: 5px;\n}\n.fab[data-v-b6a9a962] {\n  position: fixed;\n  bottom: 30px;\n  right: 30px;\n  z-index: 999;\n}\n", ""]);
+exports.push([module.i, "\n.menu-section[data-v-b6a9a962] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.velocity .label[data-v-b6a9a962] {\n  font-weight: 600;\n  font-size: 18px;\n  margin-right: 5px;\n}\n.velocity .value[data-v-b6a9a962] {\n  display: inline-block;\n  background: #40B883;\n  color: #fff;\n  border-radius: 50%;\n  width: 30px;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n}\n.fab[data-v-b6a9a962] {\n  position: fixed;\n  bottom: 30px;\n  right: 30px;\n  z-index: 999;\n}\n", ""]);
 
 // exports
 
@@ -70815,9 +70815,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SprintEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__SprintEdit_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Fab_vue__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Fab_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Fab_vue__);
-//
-//
-//
 //
 //
 //
@@ -71748,18 +71745,11 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "velocity" },
-        [
-          _c(
-            "el-badge",
-            { staticClass: "item", attrs: { value: _vm.velocity } },
-            [_c("h2", [_vm._v("Velocity")])]
-          )
-        ],
-        1
-      ),
+      _c("div", { staticClass: "velocity" }, [
+        _c("span", { staticClass: "label" }, [_vm._v("Team's Velocity")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "value" }, [_vm._v(_vm._s(_vm.velocity))])
+      ]),
       _vm._v(" "),
       _c(
         "el-table",
