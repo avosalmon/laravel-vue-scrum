@@ -1,40 +1,60 @@
 <template>
   <div>
-    <section>Velocity {{ velocity }}</section>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Available Resource (%)</th>
-            <th>Available Points</th>
-            <th>Planned Points</th>
-            <th>Actual Points</th>
-            <th>Logical Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="sprint in sprints" :key="sprint.id" class="clickable" @click="openDetail(sprint)">
-            <td>{{ sprint.id }}</td>
-            <td>{{ sprint.start_date }}</td>
-            <td>{{ sprint.end_date }}</td>
-            <td>{{ sprint.available_resource }}</td>
-            <td>{{ sprint.available_points }}</td>
-            <td>{{ sprint.planned_points }}</td>
-            <td>{{ sprint.actual_points }}</td>
-            <td>{{ sprint.logical_points }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <section class="menu-section">
+      <div class="velocity">
+        <span class="label">Velocity</span>
+        <span class="value">{{ velocity }}</span>
+      </div>
+      <div>
+        <el-button type="primary" icon="el-icon-plus" @click="openCreateDialog"></el-button>
+      </div>
+    </section>
+    <el-table
+      :data="sprints"
+      row-class-name="clickable"
+      style="width: 100%"
+      @row-click="openEditDialog($event)">
+      <el-table-column
+        prop="id"
+        label="ID">
+      </el-table-column>
+      <el-table-column
+        prop="start_date"
+        label="Start Date">
+      </el-table-column>
+      <el-table-column
+        prop="end_date"
+        label="End Date">
+      </el-table-column>
+      <el-table-column
+        prop="available_resource"
+        label="Available Resource (%)">
+      </el-table-column>
+      <el-table-column
+        prop="available_points"
+        label="Available Points">
+      </el-table-column>
+      <el-table-column
+        prop="planned_points"
+        label="Planned Points">
+      </el-table-column>
+      <el-table-column
+        prop="actual_points"
+        label="Actual Points">
+      </el-table-column>
+      <el-table-column
+        prop="logical_points"
+        label="Logical Points">
+      </el-table-column>
+    </el-table>
+    <sprint-create ref="sprintCreate"></sprint-create>
     <sprint-edit ref="sprintEdit"></sprint-edit>
   </div>
 </template>
 
 <script>
 import sprint from '../services/sprint-service'
+import SprintCreateComponent from './SprintCreate.vue'
 import SprintEditComponent from './SprintEdit.vue'
 
 export default {
@@ -46,6 +66,7 @@ export default {
   },
 
   components: {
+    'sprint-create': SprintCreateComponent,
     'sprint-edit': SprintEditComponent
   },
 
@@ -54,7 +75,11 @@ export default {
   },
 
   methods: {
-    openDetail(sprint) {
+    openCreateDialog() {
+      this.$refs.sprintCreate.open()
+    },
+
+    openEditDialog(sprint) {
       this.$refs.sprintEdit.open(sprint)
     },
 
@@ -87,3 +112,24 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import "../../sass/variables";
+
+.menu-section {
+  display: flex;
+  justify-content: space-between;
+}
+.velocity {
+  font-weight: 600;
+  .label {
+
+  }
+  .value {
+    background: #40B883;
+    color: $white;
+    border-radius: 50%;
+    padding: 5px;
+  }
+}
+</style>

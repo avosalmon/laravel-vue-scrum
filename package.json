@@ -12,18 +12,16 @@
     },
     "dependencies": {
         "axios": "^0.17",
-        "bootstrap-sass": "^3.3.7",
+        "element-ui": "^2.0.8",
         "jquery": "^3.2",
         "vue": "^2.5.7",
-        "vue-material": "^0.8.1",
         "vue-router": "^3.0.1"
     },
     "devDependencies": {
         "commitizen": "^2.9.6",
         "conventional-changelog": "^1.1.7",
         "cross-env": "^5.1",
-        "laravel-mix": "^1.0",
-        "lodash": "^4.17.4"
+        "laravel-mix": "^1.0"
     },
     "config": {
         "commitizen": {
