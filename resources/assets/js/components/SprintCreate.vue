@@ -2,6 +2,7 @@
   <el-dialog title="Create New Sprint" custom-class="sprint-dialog" :visible.sync="dialogVisible">
     <el-tabs>
       <el-tab-pane label="Dates">
+        <p class="instruction">Select start date and end date.</p>
         <el-date-picker
           class="datepicker"
           v-model="dates"
@@ -12,6 +13,7 @@
         </el-date-picker>
       </el-tab-pane>
       <el-tab-pane label="Resources">
+        <p class="instruction">Set working days to each member.</p>
         <div class="user-field" v-for="user in users" :key="user.id">
           <div class="user-profile">
             <img class="avatar" :src="user.avatar_url">
@@ -21,6 +23,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="Projects">
+        <p class="instruction">Set planned story points to each project.</p>
         <div class="project-field" v-for="(project, index) in projects" :key="project.id">
           <span class="project-name">{{ index + 1 }}. {{ project.name }}</span>
           <el-input-number class="number-input" v-model="input" controls-position="right"></el-input-number>

@@ -71089,6 +71089,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -71269,6 +71272,10 @@ var render = function() {
             "el-tab-pane",
             { attrs: { label: "Dates" } },
             [
+              _c("p", { staticClass: "instruction" }, [
+                _vm._v("Select start date and end date.")
+              ]),
+              _vm._v(" "),
               _c("el-date-picker", {
                 staticClass: "datepicker",
                 attrs: {
@@ -71292,66 +71299,80 @@ var render = function() {
           _c(
             "el-tab-pane",
             { attrs: { label: "Resources" } },
-            _vm._l(_vm.users, function(user) {
-              return _c(
-                "div",
-                { key: user.id, staticClass: "user-field" },
-                [
-                  _c("div", { staticClass: "user-profile" }, [
-                    _c("img", {
-                      staticClass: "avatar",
-                      attrs: { src: user.avatar_url }
-                    }),
+            [
+              _c("p", { staticClass: "instruction" }, [
+                _vm._v("Set working days to each member.")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return _c(
+                  "div",
+                  { key: user.id, staticClass: "user-field" },
+                  [
+                    _c("div", { staticClass: "user-profile" }, [
+                      _c("img", {
+                        staticClass: "avatar",
+                        attrs: { src: user.avatar_url }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "user-name" }, [
+                        _vm._v(_vm._s(user.display_name))
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("span", { staticClass: "user-name" }, [
-                      _vm._v(_vm._s(user.display_name))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("el-input-number", {
-                    staticClass: "number-input",
-                    attrs: { min: 1, max: 10, "controls-position": "right" },
-                    model: {
-                      value: _vm.input,
-                      callback: function($$v) {
-                        _vm.input = $$v
-                      },
-                      expression: "input"
-                    }
-                  })
-                ],
-                1
-              )
-            })
+                    _c("el-input-number", {
+                      staticClass: "number-input",
+                      attrs: { min: 1, max: 10, "controls-position": "right" },
+                      model: {
+                        value: _vm.input,
+                        callback: function($$v) {
+                          _vm.input = $$v
+                        },
+                        expression: "input"
+                      }
+                    })
+                  ],
+                  1
+                )
+              })
+            ],
+            2
           ),
           _vm._v(" "),
           _c(
             "el-tab-pane",
             { attrs: { label: "Projects" } },
-            _vm._l(_vm.projects, function(project, index) {
-              return _c(
-                "div",
-                { key: project.id, staticClass: "project-field" },
-                [
-                  _c("span", { staticClass: "project-name" }, [
-                    _vm._v(_vm._s(index + 1) + ". " + _vm._s(project.name))
-                  ]),
-                  _vm._v(" "),
-                  _c("el-input-number", {
-                    staticClass: "number-input",
-                    attrs: { "controls-position": "right" },
-                    model: {
-                      value: _vm.input,
-                      callback: function($$v) {
-                        _vm.input = $$v
-                      },
-                      expression: "input"
-                    }
-                  })
-                ],
-                1
-              )
-            })
+            [
+              _c("p", { staticClass: "instruction" }, [
+                _vm._v("Set planned story points to each project.")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.projects, function(project, index) {
+                return _c(
+                  "div",
+                  { key: project.id, staticClass: "project-field" },
+                  [
+                    _c("span", { staticClass: "project-name" }, [
+                      _vm._v(_vm._s(index + 1) + ". " + _vm._s(project.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("el-input-number", {
+                      staticClass: "number-input",
+                      attrs: { "controls-position": "right" },
+                      model: {
+                        value: _vm.input,
+                        callback: function($$v) {
+                          _vm.input = $$v
+                        },
+                        expression: "input"
+                      }
+                    })
+                  ],
+                  1
+                )
+              })
+            ],
+            2
           )
         ],
         1
