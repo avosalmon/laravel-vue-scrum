@@ -1,6 +1,6 @@
 import http from './http'
 
-const endpoint = '/api/users'
+const endpoint = '/api/projects'
 
 const defaultParams = {
   offset: 0,
