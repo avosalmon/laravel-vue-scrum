@@ -1,17 +1,13 @@
 <template>
   <div>
-    <section class="menu-section">
-      <div class="velocity">
-        <el-badge :value="velocity" class="item">
-          <h2>Velocity</h2>
-        </el-badge>
-        <!-- <span class="label">Velocity</span>
-        <span class="value">{{ velocity }}</span> -->
-      </div>
-      <div>
-        <fab icon="plus" @click.native="openCreateDialog"></fab>
-      </div>
-    </section>
+    <fab icon="plus" @click.native="openCreateDialog"></fab>
+    <div class="velocity">
+      <el-badge :value="velocity" class="item">
+        <h2>Velocity</h2>
+      </el-badge>
+      <!-- <span class="label">Velocity</span>
+      <span class="value">{{ velocity }}</span> -->
+    </div>
     <el-table
       :data="sprints"
       row-class-name="clickable"

@@ -70830,10 +70830,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -71407,7 +71403,7 @@ exports = module.exports = __webpack_require__(25)(undefined);
 
 
 // module
-exports.push([module.i, "\n.fab[data-v-a50097c0] {\n  padding: 12px;\n  border-radius: 50%;\n  width: 50px;\n  height: 50px;\n  font-size: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.fab[data-v-a50097c0] {\n  padding: 12px;\n  border-radius: 50%;\n  width: 60px;\n  height: 60px;\n  font-size: 20px;\n  -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);\n          box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);\n}\n", ""]);
 
 // exports
 
@@ -71475,35 +71471,27 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("section", { staticClass: "menu-section" }, [
-        _c(
-          "div",
-          { staticClass: "velocity" },
-          [
-            _c(
-              "el-badge",
-              { staticClass: "item", attrs: { value: _vm.velocity } },
-              [_c("h2", [_vm._v("Velocity")])]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          [
-            _c("fab", {
-              attrs: { icon: "plus" },
-              nativeOn: {
-                click: function($event) {
-                  _vm.openCreateDialog($event)
-                }
-              }
-            })
-          ],
-          1
-        )
-      ]),
+      _c("fab", {
+        attrs: { icon: "plus" },
+        nativeOn: {
+          click: function($event) {
+            _vm.openCreateDialog($event)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "velocity" },
+        [
+          _c(
+            "el-badge",
+            { staticClass: "item", attrs: { value: _vm.velocity } },
+            [_c("h2", [_vm._v("Velocity")])]
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "el-table",
