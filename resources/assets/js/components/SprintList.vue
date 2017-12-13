@@ -2,11 +2,14 @@
   <div>
     <section class="menu-section">
       <div class="velocity">
-        <span class="label">Velocity</span>
-        <span class="value">{{ velocity }}</span>
+        <el-badge :value="velocity" class="item">
+          <h2>Velocity</h2>
+        </el-badge>
+        <!-- <span class="label">Velocity</span>
+        <span class="value">{{ velocity }}</span> -->
       </div>
       <div>
-        <el-button type="primary" icon="el-icon-plus" @click="openCreateDialog"></el-button>
+        <fab icon="plus" @click.native="openCreateDialog"></fab>
       </div>
     </section>
     <el-table
@@ -56,6 +59,7 @@
 import sprint from '../services/sprint-service'
 import SprintCreateComponent from './SprintCreate.vue'
 import SprintEditComponent from './SprintEdit.vue'
+import FabComponent from './Fab.vue'
 
 export default {
   data () {
@@ -67,7 +71,8 @@ export default {
 
   components: {
     'sprint-create': SprintCreateComponent,
-    'sprint-edit': SprintEditComponent
+    'sprint-edit': SprintEditComponent,
+    'fab': FabComponent
   },
 
   mounted() {
@@ -113,13 +118,14 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../sass/variables";
 
 .menu-section {
   display: flex;
   justify-content: space-between;
 }
+
 .velocity {
   font-weight: 600;
   .label {
@@ -131,5 +137,11 @@ export default {
     border-radius: 50%;
     padding: 5px;
   }
+}
+
+.fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
 }
 </style>
