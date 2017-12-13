@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Edit Sprint" :visible.sync="dialogVisible" :before-close="handleClose">
+  <el-dialog title="Edit Sprint" :visible.sync="dialogVisible">
     <el-date-picker
       v-model="dates"
       type="daterange"
@@ -50,13 +50,6 @@ export default {
       this.dialogVisible = false
     },
 
-    handleClose(done) {
-      this.$confirm('Are you sure to close this dialog?')
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
-    }
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Create New Sprint" :visible.sync="dialogVisible" :before-close="handleClose">
+  <el-dialog title="Create New Sprint" :visible.sync="dialogVisible">
     <el-date-picker
       v-model="dates"
       type="daterange"
@@ -16,6 +16,7 @@
 
 <script>
 import sprint from '../services/sprint-service'
+import user from '../services/user-service'
 
 export default {
   name: 'sprint-create',
@@ -26,8 +27,14 @@ export default {
       dialogVisible: false,
       dates: [],
       formLabelWidth: '120px',
-      form: {}
+      form: {},
+      users: [],
+      projects: []
     }
+  },
+
+  mounted() {
+    this.fetchUsers()
   },
 
   methods: {
@@ -45,13 +52,11 @@ export default {
       this.dialogVisible = false
     },
 
-    handleClose(done) {
-      this.$confirm('Are you sure to close this dialog?')
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
-    }
+    fetchUsers() {
+      user.all().then(response => {
+        this.users = response.data.users
+      })
+    },
   }
 };
 </script>
