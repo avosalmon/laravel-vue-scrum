@@ -1,20 +1,32 @@
 <template>
-  <el-dialog title="Create New Sprint" :visible.sync="dialogVisible">
-    <el-date-picker
-      class="datepicker"
-      v-model="dates"
-      type="daterange"
-      range-separator="To"
-      start-placeholder="Start Date"
-      end-placeholder="End Date">
-    </el-date-picker>
-    <div class="working-days-field" v-for="user in users" :key="user.id">
-      <div class="user-profile">
-        <img class="avatar" :src="user.avatar_url">
-        <span class="user-name">{{ user.display_name }}</span>
-      </div>
-      <el-input-number v-model="input" :min="1" :max="10"></el-input-number>
-    </div>
+  <el-dialog title="Create New Sprint" custom-class="sprint-dialog" :visible.sync="dialogVisible">
+    <el-tabs>
+      <el-tab-pane label="Dates">
+        <el-date-picker
+          class="datepicker"
+          v-model="dates"
+          type="daterange"
+          range-separator="To"
+          start-placeholder="Start Date"
+          end-placeholder="End Date">
+        </el-date-picker>
+      </el-tab-pane>
+      <el-tab-pane label="Resources">
+        <div class="user-field" v-for="user in users" :key="user.id">
+          <div class="user-profile">
+            <img class="avatar" :src="user.avatar_url">
+            <span class="user-name">{{ user.display_name }}</span>
+          </div>
+          <el-input-number class="number-input" v-model="input" :min="1" :max="10" controls-position="right"></el-input-number>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Projects">
+        <div class="project-field" v-for="(project, index) in projects" :key="project.id">
+          <span class="project-name">{{ index + 1 }}. {{ project.name }}</span>
+          <el-input-number class="number-input" v-model="input" controls-position="right"></el-input-number>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
     <div slot="footer" class="dialog-footer">
       <el-button @click="close">CANCEL</el-button>
       <el-button type="primary" @click="create">CREATE</el-button>
@@ -51,6 +63,7 @@ export default {
 
       }
       sprint.create(data).then(response => {
+        this.$emit('created')
         this.close()
       })
     },
@@ -83,28 +96,44 @@ export default {
 
 <style lang="scss" scoped>
 .datepicker {
-  margin-bottom: 15px;
+  margin-top: 20px;
 }
 
-.working-days-field {
+.number-input {
+  width: 120px;
+}
+
+.user-field {
   margin-top: 20px;
   display: flex;
+
+  .user-profile {
+    width: 200px;
+
+    .user-name {
+      font-size: 16px;
+      vertical-align: middle;
+    }
+
+    .avatar {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+  }
 }
 
-.user-profile {
-  width: 185px;
-}
+.project-field {
+  margin-top: 20px;
+  display: flex;
 
-.user-name {
-  font-size: 16px;
-  vertical-align: middle;
-}
-
-.avatar {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin-right: 5px;
-  vertical-align: middle;
+  .project-name {
+    font-size: 16px;
+    vertical-align: middle;
+    width: 200px;
+    line-height: 40px;
+  }
 }
 </style>

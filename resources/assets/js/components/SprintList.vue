@@ -46,7 +46,7 @@
         label="Logical Points">
       </el-table-column>
     </el-table>
-    <sprint-create ref="sprintCreate"></sprint-create>
+    <sprint-create ref="sprintCreate" @created="fetchSprints"></sprint-create>
     <sprint-edit ref="sprintEdit"></sprint-edit>
   </div>
 </template>

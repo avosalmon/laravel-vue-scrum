@@ -71039,7 +71039,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, "\n.datepicker[data-v-bd454b26] {\n  margin-bottom: 15px;\n}\n.working-days-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.user-profile[data-v-bd454b26] {\n  width: 185px;\n}\n.user-name[data-v-bd454b26] {\n  font-size: 16px;\n  vertical-align: middle;\n}\n.avatar[data-v-bd454b26] {\n  border-radius: 50%;\n  width: 40px;\n  height: 40px;\n  margin-right: 5px;\n  vertical-align: middle;\n}\n", ""]);
+exports.push([module.i, "\n.datepicker[data-v-bd454b26] {\n  margin-top: 20px;\n}\n.number-input[data-v-bd454b26] {\n  width: 120px;\n}\n.user-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.user-field .user-profile[data-v-bd454b26] {\n    width: 200px;\n}\n.user-field .user-profile .user-name[data-v-bd454b26] {\n      font-size: 16px;\n      vertical-align: middle;\n}\n.user-field .user-profile .avatar[data-v-bd454b26] {\n      border-radius: 50%;\n      width: 40px;\n      height: 40px;\n      margin-right: 5px;\n      vertical-align: middle;\n}\n.project-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.project-field .project-name[data-v-bd454b26] {\n    font-size: 16px;\n    vertical-align: middle;\n    width: 200px;\n    line-height: 40px;\n}\n", ""]);
 
 // exports
 
@@ -71077,6 +71077,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -71087,10 +71099,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
-      sprint: {},
       dialogVisible: false,
       dates: [],
-      formLabelWidth: '120px',
       users: [],
       projects: [],
       input: ''
@@ -71106,7 +71116,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     create: function create() {
       var _this = this;
 
-      __WEBPACK_IMPORTED_MODULE_1__services_sprint_service__["a" /* default */].create(this.sprint).then(function (response) {
+      var data = {};
+      __WEBPACK_IMPORTED_MODULE_1__services_sprint_service__["a" /* default */].create(data).then(function (response) {
+        _this.$emit('created');
         _this.close();
       });
     },
@@ -71238,7 +71250,11 @@ var render = function() {
   return _c(
     "el-dialog",
     {
-      attrs: { title: "Create New Sprint", visible: _vm.dialogVisible },
+      attrs: {
+        title: "Create New Sprint",
+        "custom-class": "sprint-dialog",
+        visible: _vm.dialogVisible
+      },
       on: {
         "update:visible": function($event) {
           _vm.dialogVisible = $event
@@ -71246,53 +71262,100 @@ var render = function() {
       }
     },
     [
-      _c("el-date-picker", {
-        staticClass: "datepicker",
-        attrs: {
-          type: "daterange",
-          "range-separator": "To",
-          "start-placeholder": "Start Date",
-          "end-placeholder": "End Date"
-        },
-        model: {
-          value: _vm.dates,
-          callback: function($$v) {
-            _vm.dates = $$v
-          },
-          expression: "dates"
-        }
-      }),
-      _vm._v(" "),
-      _vm._l(_vm.users, function(user) {
-        return _c(
-          "div",
-          { key: user.id, staticClass: "working-days-field" },
-          [
-            _c("div", { staticClass: "user-profile" }, [
-              _c("img", {
-                staticClass: "avatar",
-                attrs: { src: user.avatar_url }
-              }),
-              _vm._v(" "),
-              _c("span", { staticClass: "user-name" }, [
-                _vm._v(_vm._s(user.display_name))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("el-input-number", {
-              attrs: { min: 1, max: 10 },
-              model: {
-                value: _vm.input,
-                callback: function($$v) {
-                  _vm.input = $$v
+      _c(
+        "el-tabs",
+        [
+          _c(
+            "el-tab-pane",
+            { attrs: { label: "Dates" } },
+            [
+              _c("el-date-picker", {
+                staticClass: "datepicker",
+                attrs: {
+                  type: "daterange",
+                  "range-separator": "To",
+                  "start-placeholder": "Start Date",
+                  "end-placeholder": "End Date"
                 },
-                expression: "input"
-              }
+                model: {
+                  value: _vm.dates,
+                  callback: function($$v) {
+                    _vm.dates = $$v
+                  },
+                  expression: "dates"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-tab-pane",
+            { attrs: { label: "Resources" } },
+            _vm._l(_vm.users, function(user) {
+              return _c(
+                "div",
+                { key: user.id, staticClass: "user-field" },
+                [
+                  _c("div", { staticClass: "user-profile" }, [
+                    _c("img", {
+                      staticClass: "avatar",
+                      attrs: { src: user.avatar_url }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "user-name" }, [
+                      _vm._v(_vm._s(user.display_name))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("el-input-number", {
+                    staticClass: "number-input",
+                    attrs: { min: 1, max: 10, "controls-position": "right" },
+                    model: {
+                      value: _vm.input,
+                      callback: function($$v) {
+                        _vm.input = $$v
+                      },
+                      expression: "input"
+                    }
+                  })
+                ],
+                1
+              )
             })
-          ],
-          1
-        )
-      }),
+          ),
+          _vm._v(" "),
+          _c(
+            "el-tab-pane",
+            { attrs: { label: "Projects" } },
+            _vm._l(_vm.projects, function(project, index) {
+              return _c(
+                "div",
+                { key: project.id, staticClass: "project-field" },
+                [
+                  _c("span", { staticClass: "project-name" }, [
+                    _vm._v(_vm._s(index + 1) + ". " + _vm._s(project.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("el-input-number", {
+                    staticClass: "number-input",
+                    attrs: { "controls-position": "right" },
+                    model: {
+                      value: _vm.input,
+                      callback: function($$v) {
+                        _vm.input = $$v
+                      },
+                      expression: "input"
+                    }
+                  })
+                ],
+                1
+              )
+            })
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -71313,7 +71376,7 @@ var render = function() {
         1
       )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -71725,7 +71788,10 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("sprint-create", { ref: "sprintCreate" }),
+      _c("sprint-create", {
+        ref: "sprintCreate",
+        on: { created: _vm.fetchSprints }
+      }),
       _vm._v(" "),
       _c("sprint-edit", { ref: "sprintEdit" })
     ],
