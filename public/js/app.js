@@ -68036,7 +68036,7 @@ var render = function() {
       _c(
         "el-container",
         [
-          _c("el-header", [_c("h1", [_vm._v("Laravel Vue Scrum")])]),
+          _c("el-header", [_c("h1", [_vm._v("Scrum Velocity Manager")])]),
           _vm._v(" "),
           _c("el-main", [_c("router-view")], 1)
         ],

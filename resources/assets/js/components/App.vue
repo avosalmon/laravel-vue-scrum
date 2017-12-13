@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header>
-        <h1>Laravel Vue Scrum</h1>
+        <h1>Scrum Velocity Manager</h1>
       </el-header>
       <el-main>
         <router-view></router-view>
