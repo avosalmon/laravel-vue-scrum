@@ -71101,6 +71101,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -71112,6 +71115,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   components: {
     'avatar': __WEBPACK_IMPORTED_MODULE_0__Avatar_vue___default.a
+  },
+
+  props: {
+    velocity: {
+      type: Number,
+      required: true
+    }
   },
 
   data: function data() {
@@ -71136,7 +71146,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     create: function create() {
       var _this = this;
 
-      var data = {};
+      var sprintData = {
+        start_date: this.form.dates[0],
+        end_date: this.form.dates[1],
+        available_resource: 100,
+        available_points: 25,
+        planned_points: 25
+      };
       __WEBPACK_IMPORTED_MODULE_2__services_sprint_service__["a" /* default */].create(data).then(function (response) {
         // TODO: create sprint_users
         // TODO: create sprint_projects
@@ -71220,6 +71236,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }
         }
       });
+    }
+  },
+
+  computed: {
+    availableResource: function availableResource() {
+      var maxWorkingDays = 10 * this.users.length;
+      var totalWorkingDays = this.form.users.reduce(function (sum, user) {
+        return sum + user.workingDays;
+      }, 0);
+
+      return Math.round(totalWorkingDays / maxWorkingDays * 100);
+    },
+
+    availablePoints: function availablePoints() {
+      return Math.round(this.velocity * this.availableResource / 100);
+    },
+
+    plannedPoints: function plannedPoints() {
+      return this.form.projects.reduce(function (sum, project) {
+        return sum + project.plannedPoints;
+      }, 0);
     }
   }
 });
@@ -71524,7 +71561,11 @@ var render = function() {
                   ],
                   1
                 )
-              })
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.availableResource) + "%")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.availablePoints) + "Points")])
             ],
             2
           ),
@@ -71564,7 +71605,9 @@ var render = function() {
                   ],
                   1
                 )
-              })
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.plannedPoints) + "Points")])
             ],
             2
           )
@@ -72000,6 +72043,7 @@ var render = function() {
       _vm._v(" "),
       _c("sprint-create", {
         ref: "sprintCreate",
+        attrs: { velocity: _vm.velocity },
         on: { created: _vm.fetchSprints }
       }),
       _vm._v(" "),

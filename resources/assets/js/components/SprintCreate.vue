@@ -26,6 +26,8 @@
             controls-position="right">
           </el-input-number>
         </div>
+        <span>{{ availableResource }}%</span>
+        <span>{{ availablePoints }}Points</span>
       </el-tab-pane>
       <el-tab-pane label="Projects">
         <p class="instruction">Set planned story points to each project.</p>
@@ -37,6 +39,7 @@
             controls-position="right">
           </el-input-number>
         </div>
+        <span>{{ plannedPoints }}Points</span>
       </el-tab-pane>
     </el-tabs>
     <div slot="footer" class="dialog-footer">
@@ -59,6 +62,13 @@ export default {
     'avatar': AvatarComponrnt
   },
 
+  props: {
+    velocity: {
+      type: Number,
+      required: true
+    }
+  },
+
   data () {
     return {
       dialogVisible: false,
@@ -79,10 +89,14 @@ export default {
 
   methods: {
     create() {
-      const data = {
-
+      const sprintData = {
+        start_date: this.form.dates[0],
+        end_date: this.form.dates[1],
+        available_resource: this.availableResource,
+        available_points: this.availablePoints,
+        planned_points: this.plannedPoints
       }
-      sprint.create(data).then(response => {
+      sprint.create(sprintData).then(response => {
         // TODO: create sprint_users
         // TODO: create sprint_projects
 
@@ -123,6 +137,27 @@ export default {
           this.form.projects.push(formData)
         }
       })
+    }
+  },
+
+  computed: {
+    availableResource: function() {
+      const maxWorkingDays   = 10 * this.users.length
+      const totalWorkingDays = this.form.users.reduce((sum, user) => {
+        return sum + user.workingDays;
+      }, 0)
+
+      return Math.round(totalWorkingDays / maxWorkingDays * 100)
+    },
+
+    availablePoints: function() {
+      return Math.round(this.velocity * this.availableResource / 100)
+    },
+
+    plannedPoints: function() {
+      return this.form.projects.reduce((sum, project) => {
+        return sum + project.plannedPoints;
+      }, 0)
     }
   }
 };
