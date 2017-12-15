@@ -55,6 +55,12 @@ import SprintEditComponent from './SprintEdit.vue'
 import FabComponent from './Fab.vue'
 
 export default {
+  components: {
+    'sprint-create': SprintCreateComponent,
+    'sprint-edit': SprintEditComponent,
+    'fab': FabComponent
+  },
+
   data () {
     return {
       sprints: []
@@ -81,12 +87,6 @@ export default {
 
       return Math.round(total / count)
     }
-  },
-
-  components: {
-    'sprint-create': SprintCreateComponent,
-    'sprint-edit': SprintEditComponent,
-    'fab': FabComponent
   },
 
   mounted() {

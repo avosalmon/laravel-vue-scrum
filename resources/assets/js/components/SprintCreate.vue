@@ -16,7 +16,7 @@
         <p class="instruction">Set working days to each member.</p>
         <div class="user-field" v-for="(user, index) in users" :key="user.id">
           <div class="user-profile">
-            <img class="avatar" :src="user.avatar_url">
+            <avatar :image-src="user.avatar_url"></avatar>
             <span class="user-name">{{ user.display_name }}</span>
           </div>
           <el-input-number
@@ -47,12 +47,17 @@
 </template>
 
 <script>
+import AvatarComponrnt from './Avatar.vue'
 import project from '../services/project-service'
 import sprint from '../services/sprint-service'
 import user from '../services/user-service'
 
 export default {
   name: 'sprint-create',
+
+  components: {
+    'avatar': AvatarComponrnt
+  },
 
   data () {
     return {
