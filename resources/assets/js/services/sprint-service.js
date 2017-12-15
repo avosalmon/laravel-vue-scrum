@@ -10,7 +10,6 @@ const defaultParams = {
 }
 
 export default {
-
   all(meta) {
     const url = endpoint + this.formatParameters(meta)
     return http.get(url)
@@ -28,6 +27,16 @@ export default {
 
   create(data) {
     return http.post(endpoint, data)
+  },
+
+  attachUser(sprintId, userId, data) {
+    const url = `${endpoint}/${sprintId}/users/${userId}`
+    return http.post(url, data)
+  },
+
+  attachProject(sprintId, projectId, data) {
+    const url = `${endpoint}/${sprintId}/projects/${projectId}`
+    return http.post(url, data)
   },
 
   formatParameters(params) {

@@ -13891,6 +13891,14 @@ var defaultParams = {
   create: function create(data) {
     return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post(endpoint, data);
   },
+  attachUser: function attachUser(sprintId, userId, data) {
+    var url = endpoint + '/' + sprintId + '/users/' + userId;
+    return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post(url, data);
+  },
+  attachProject: function attachProject(sprintId, projectId, data) {
+    var url = endpoint + '/' + sprintId + '/projects/' + projectId;
+    return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post(url, data);
+  },
   formatParameters: function formatParameters(params) {
     params = params || defaultParams;
 
@@ -71147,44 +71155,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       var sprintData = {
-        start_date: this.form.dates[0],
-        end_date: this.form.dates[1],
-        available_resource: 100,
-        available_points: 25,
-        planned_points: 25
+        start_date: new Date(this.form.dates[0]).toLocaleDateString(),
+        end_date: new Date(this.form.dates[1]).toLocaleDateString(),
+        available_resource: this.availableResource,
+        available_points: this.availablePoints,
+        planned_points: this.plannedPoints
       };
-      __WEBPACK_IMPORTED_MODULE_2__services_sprint_service__["a" /* default */].create(data).then(function (response) {
-        // TODO: create sprint_users
-        // TODO: create sprint_projects
 
-        _this.$emit('created');
-        _this.close();
-      });
-    },
-    open: function open() {
-      this.dialogVisible = true;
-    },
-    close: function close() {
-      this.dialogVisible = false;
-    },
-    fetchUsers: function fetchUsers() {
-      var _this2 = this;
+      __WEBPACK_IMPORTED_MODULE_2__services_sprint_service__["a" /* default */].create(sprintData).then(function (response) {
+        var createdSprint = response.data.sprint;
+        var promises = [];
 
-      __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* default */].all().then(function (response) {
-        _this2.users = response.data.users;
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
 
         try {
-          for (var _iterator = _this2.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          for (var _iterator = _this.form.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _user = _step.value;
 
-            var formData = {
-              userId: _user.id,
-              workingDays: 10
+            var data = {
+              working_days: _user.workingDays
             };
-            _this2.form.users.push(formData);
+            promises.push(__WEBPACK_IMPORTED_MODULE_2__services_sprint_service__["a" /* default */].attachUser(createdSprint.id, _user.userId, data));
           }
         } catch (err) {
           _didIteratorError = true;
@@ -71200,26 +71193,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
           }
         }
-      });
-    },
-    fetchProjects: function fetchProjects() {
-      var _this3 = this;
 
-      __WEBPACK_IMPORTED_MODULE_1__services_project_service__["a" /* default */].all().then(function (response) {
-        _this3.projects = response.data.projects;
         var _iteratorNormalCompletion2 = true;
         var _didIteratorError2 = false;
         var _iteratorError2 = undefined;
 
         try {
-          for (var _iterator2 = _this3.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          for (var _iterator2 = _this.form.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
             var _project = _step2.value;
 
-            var formData = {
-              projectId: _project.id,
-              plannedPoints: 0
+            var data = {
+              planned_points: _project.plannedPoints
             };
-            _this3.form.projects.push(formData);
+            promises.push(__WEBPACK_IMPORTED_MODULE_2__services_sprint_service__["a" /* default */].attachProject(createdSprint.id, _project.projectId, data));
           }
         } catch (err) {
           _didIteratorError2 = true;
@@ -71232,6 +71218,87 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } finally {
             if (_didIteratorError2) {
               throw _iteratorError2;
+            }
+          }
+        }
+
+        axios.all(promises).then(function () {
+          _this.$emit('created');
+          _this.close();
+        });
+      });
+    },
+    open: function open() {
+      this.dialogVisible = true;
+    },
+    close: function close() {
+      this.dialogVisible = false;
+    },
+    fetchUsers: function fetchUsers() {
+      var _this2 = this;
+
+      __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* default */].all().then(function (response) {
+        _this2.users = response.data.users;
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+          for (var _iterator3 = _this2.users[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var _user2 = _step3.value;
+
+            var formData = {
+              userId: _user2.id,
+              workingDays: 10
+            };
+            _this2.form.users.push(formData);
+          }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+              _iterator3.return();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
+            }
+          }
+        }
+      });
+    },
+    fetchProjects: function fetchProjects() {
+      var _this3 = this;
+
+      __WEBPACK_IMPORTED_MODULE_1__services_project_service__["a" /* default */].all().then(function (response) {
+        _this3.projects = response.data.projects;
+        var _iteratorNormalCompletion4 = true;
+        var _didIteratorError4 = false;
+        var _iteratorError4 = undefined;
+
+        try {
+          for (var _iterator4 = _this3.projects[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            var _project2 = _step4.value;
+
+            var formData = {
+              projectId: _project2.id,
+              plannedPoints: 0
+            };
+            _this3.form.projects.push(formData);
+          }
+        } catch (err) {
+          _didIteratorError4 = true;
+          _iteratorError4 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion4 && _iterator4.return) {
+              _iterator4.return();
+            }
+          } finally {
+            if (_didIteratorError4) {
+              throw _iteratorError4;
             }
           }
         }

@@ -90,18 +90,35 @@ export default {
   methods: {
     create() {
       const sprintData = {
-        start_date: this.form.dates[0],
-        end_date: this.form.dates[1],
+        start_date: new Date(this.form.dates[0]).toLocaleDateString(),
+        end_date: new Date(this.form.dates[1]).toLocaleDateString(),
         available_resource: this.availableResource,
         available_points: this.availablePoints,
         planned_points: this.plannedPoints
       }
-      sprint.create(sprintData).then(response => {
-        // TODO: create sprint_users
-        // TODO: create sprint_projects
 
-        this.$emit('created')
-        this.close()
+      sprint.create(sprintData).then(response => {
+        const createdSprint = response.data.sprint
+        let promises = []
+
+        for (const user of this.form.users) {
+          const data = {
+            working_days: user.workingDays
+          }
+          promises.push(sprint.attachUser(createdSprint.id, user.userId, data))
+        }
+
+        for (const project of this.form.projects) {
+          const data = {
+            planned_points: project.plannedPoints
+          }
+          promises.push(sprint.attachProject(createdSprint.id, project.projectId, data))
+        }
+
+        axios.all(promises).then(() => {
+          this.$emit('created')
+          this.close()
+        })
       })
     },
 
