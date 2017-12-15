@@ -70874,39 +70874,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      sprints: [],
-      velocity: null
+      sprints: []
     };
   },
 
 
-  components: {
-    'sprint-create': __WEBPACK_IMPORTED_MODULE_1__SprintCreate_vue___default.a,
-    'sprint-edit': __WEBPACK_IMPORTED_MODULE_2__SprintEdit_vue___default.a,
-    'fab': __WEBPACK_IMPORTED_MODULE_3__Fab_vue___default.a
-  },
-
-  mounted: function mounted() {
-    this.fetchSprints();
-  },
-
-
-  methods: {
-    openCreateDialog: function openCreateDialog() {
-      this.$refs.sprintCreate.open();
-    },
-    openEditDialog: function openEditDialog(sprint) {
-      this.$refs.sprintEdit.open(sprint);
-    },
-    fetchSprints: function fetchSprints() {
-      var _this = this;
-
-      __WEBPACK_IMPORTED_MODULE_0__services_sprint_service__["a" /* default */].all().then(function (response) {
-        _this.sprints = response.data.sprints;
-        _this.calculateVelocity();
-      });
-    },
-    calculateVelocity: function calculateVelocity() {
+  computed: {
+    velocity: function velocity() {
       var total = 0;
       var count = 0;
 
@@ -70944,7 +70918,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       }
 
-      this.velocity = Math.round(total / count);
+      return Math.round(total / count);
+    }
+  },
+
+  components: {
+    'sprint-create': __WEBPACK_IMPORTED_MODULE_1__SprintCreate_vue___default.a,
+    'sprint-edit': __WEBPACK_IMPORTED_MODULE_2__SprintEdit_vue___default.a,
+    'fab': __WEBPACK_IMPORTED_MODULE_3__Fab_vue___default.a
+  },
+
+  mounted: function mounted() {
+    this.fetchSprints();
+  },
+
+
+  methods: {
+    openCreateDialog: function openCreateDialog() {
+      this.$refs.sprintCreate.open();
+    },
+    openEditDialog: function openEditDialog(sprint) {
+      this.$refs.sprintEdit.open(sprint);
+    },
+    fetchSprints: function fetchSprints() {
+      var _this = this;
+
+      __WEBPACK_IMPORTED_MODULE_0__services_sprint_service__["a" /* default */].all().then(function (response) {
+        _this.sprints = response.data.sprints;
+      });
     }
   }
 });
@@ -71745,11 +71746,13 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "velocity" }, [
-        _c("span", { staticClass: "label" }, [_vm._v("Team's Velocity")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "value" }, [_vm._v(_vm._s(_vm.velocity))])
-      ]),
+      _vm.velocity
+        ? _c("div", { staticClass: "velocity" }, [
+            _c("span", { staticClass: "label" }, [_vm._v("Team's Velocity")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "value" }, [_vm._v(_vm._s(_vm.velocity))])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "el-table",

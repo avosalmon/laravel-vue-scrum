@@ -1,7 +1,7 @@
 <template>
   <div>
     <fab icon="plus" @click.native="openCreateDialog"></fab>
-    <div class="velocity">
+    <div class="velocity" v-if="velocity">
       <span class="label">Team's Velocity</span>
       <span class="value">{{ velocity }}</span>
     </div>
@@ -57,8 +57,29 @@ import FabComponent from './Fab.vue'
 export default {
   data () {
     return {
-      sprints: [],
-      velocity: null
+      sprints: []
+    }
+  },
+
+  computed: {
+    velocity: function() {
+      let total = 0
+      let count = 0
+
+      for (const sprint of this.sprints) {
+        if (count > 2) {
+          break
+        }
+
+        if (!sprint.logical_points) {
+          continue
+        }
+
+        total += sprint.logical_points
+        count ++
+      }
+
+      return Math.round(total / count)
     }
   },
 
@@ -84,28 +105,7 @@ export default {
     fetchSprints() {
       sprint.all().then(response => {
         this.sprints = response.data.sprints
-        this.calculateVelocity()
       })
-    },
-
-    calculateVelocity() {
-      let total = 0
-      let count = 0
-
-      for (const sprint of this.sprints) {
-        if (count > 2) {
-          break
-        }
-
-        if (!sprint.logical_points) {
-          continue
-        }
-
-        total += sprint.logical_points
-        count ++
-      }
-
-      this.velocity = Math.round(total / count)
     }
   }
 };
