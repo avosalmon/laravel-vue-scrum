@@ -205,14 +205,6 @@ export default {
       font-size: 16px;
       vertical-align: middle;
     }
-
-    .avatar {
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      margin-right: 5px;
-      vertical-align: middle;
-    }
   }
 }
 

@@ -71041,7 +71041,7 @@ exports = module.exports = __webpack_require__(14)(undefined);
 
 
 // module
-exports.push([module.i, "\n.datepicker[data-v-bd454b26] {\n  margin-top: 20px;\n}\n.number-input[data-v-bd454b26] {\n  width: 120px;\n}\n.user-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.user-field .user-profile[data-v-bd454b26] {\n    width: 200px;\n}\n.user-field .user-profile .user-name[data-v-bd454b26] {\n      font-size: 16px;\n      vertical-align: middle;\n}\n.user-field .user-profile .avatar[data-v-bd454b26] {\n      border-radius: 50%;\n      width: 40px;\n      height: 40px;\n      margin-right: 5px;\n      vertical-align: middle;\n}\n.project-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.project-field .project-name[data-v-bd454b26] {\n    font-size: 16px;\n    vertical-align: middle;\n    width: 200px;\n    line-height: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.datepicker[data-v-bd454b26] {\n  margin-top: 20px;\n}\n.number-input[data-v-bd454b26] {\n  width: 120px;\n}\n.user-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.user-field .user-profile[data-v-bd454b26] {\n    width: 200px;\n}\n.user-field .user-profile .user-name[data-v-bd454b26] {\n      font-size: 16px;\n      vertical-align: middle;\n}\n.project-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.project-field .project-name[data-v-bd454b26] {\n    font-size: 16px;\n    vertical-align: middle;\n    width: 200px;\n    line-height: 40px;\n}\n", ""]);
 
 // exports
 
