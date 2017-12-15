@@ -11,10 +11,6 @@
       style="width: 100%"
       @row-click="openEditDialog($event)">
       <el-table-column
-        prop="id"
-        label="ID">
-      </el-table-column>
-      <el-table-column
         prop="start_date"
         label="Start Date">
       </el-table-column>

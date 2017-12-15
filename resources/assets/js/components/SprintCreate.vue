@@ -116,6 +116,11 @@ export default {
         }
 
         axios.all(promises).then(() => {
+          this.$message({
+            message: 'Sprint has been created!',
+            type: 'success',
+            duration: 5000
+          });
           this.$emit('created')
           this.close()
         })

@@ -70869,10 +70869,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -71223,6 +71219,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         axios.all(promises).then(function () {
+          _this.$message({
+            message: 'Sprint has been created!',
+            type: 'success',
+            duration: 5000
+          });
           _this.$emit('created');
           _this.close();
         });
@@ -72072,8 +72073,6 @@ var render = function() {
           }
         },
         [
-          _c("el-table-column", { attrs: { prop: "id", label: "ID" } }),
-          _vm._v(" "),
           _c("el-table-column", {
             attrs: { prop: "start_date", label: "Start Date" }
           }),
