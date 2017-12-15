@@ -5,7 +5,7 @@
         <p class="instruction">Select start date and end date.</p>
         <el-date-picker
           class="datepicker"
-          v-model="dates"
+          v-model="form.dates"
           type="daterange"
           range-separator="To"
           start-placeholder="Start Date"
@@ -14,19 +14,28 @@
       </el-tab-pane>
       <el-tab-pane label="Resources">
         <p class="instruction">Set working days to each member.</p>
-        <div class="user-field" v-for="user in users" :key="user.id">
+        <div class="user-field" v-for="(user, index) in users" :key="user.id">
           <div class="user-profile">
             <img class="avatar" :src="user.avatar_url">
             <span class="user-name">{{ user.display_name }}</span>
           </div>
-          <el-input-number class="number-input" v-model="input" :min="1" :max="10" controls-position="right"></el-input-number>
+          <el-input-number
+            class="number-input"
+            v-model="form.users[index].workingDays"
+            :min="1" :max="10"
+            controls-position="right">
+          </el-input-number>
         </div>
       </el-tab-pane>
       <el-tab-pane label="Projects">
         <p class="instruction">Set planned story points to each project.</p>
         <div class="project-field" v-for="(project, index) in projects" :key="project.id">
           <span class="project-name">{{ index + 1 }}. {{ project.name }}</span>
-          <el-input-number class="number-input" v-model="input" controls-position="right"></el-input-number>
+          <el-input-number
+            class="number-input"
+            v-model="form.projects[index].plannedPoints"
+            controls-position="right">
+          </el-input-number>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -48,10 +57,13 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      dates: [],
       users: [],
       projects: [],
-      input: ''
+      form: {
+        dates: [],
+        users: [],
+        projects: []
+      }
     }
   },
 
@@ -66,6 +78,9 @@ export default {
 
       }
       sprint.create(data).then(response => {
+        // TODO: create sprint_users
+        // TODO: create sprint_projects
+
         this.$emit('created')
         this.close()
       })
@@ -83,7 +98,11 @@ export default {
       user.all().then(response => {
         this.users = response.data.users
         for (const user of this.users) {
-          user.working_days = 10
+          const formData = {
+            userId: user.id,
+            workingDays: 10
+          }
+          this.form.users.push(formData)
         }
       })
     },
@@ -91,6 +110,13 @@ export default {
     fetchProjects() {
       project.all().then(response => {
         this.projects = response.data.projects
+        for (const project of this.projects) {
+          const formData = {
+            projectId: project.id,
+            plannedPoints: 0
+          }
+          this.form.projects.push(formData)
+        }
       })
     }
   }

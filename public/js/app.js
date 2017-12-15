@@ -71090,6 +71090,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -71101,10 +71110,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       dialogVisible: false,
-      dates: [],
       users: [],
       projects: [],
-      input: ''
+      form: {
+        dates: [],
+        users: [],
+        projects: []
+      }
     };
   },
   mounted: function mounted() {
@@ -71119,6 +71131,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var data = {};
       __WEBPACK_IMPORTED_MODULE_1__services_sprint_service__["a" /* default */].create(data).then(function (response) {
+        // TODO: create sprint_users
+        // TODO: create sprint_projects
+
         _this.$emit('created');
         _this.close();
       });
@@ -71142,7 +71157,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           for (var _iterator = _this2.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _user = _step.value;
 
-            _user.working_days = 10;
+            var formData = {
+              userId: _user.id,
+              workingDays: 10
+            };
+            _this2.form.users.push(formData);
           }
         } catch (err) {
           _didIteratorError = true;
@@ -71165,6 +71184,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       __WEBPACK_IMPORTED_MODULE_0__services_project_service__["a" /* default */].all().then(function (response) {
         _this3.projects = response.data.projects;
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = _this3.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var _project = _step2.value;
+
+            var formData = {
+              projectId: _project.id,
+              plannedPoints: 0
+            };
+            _this3.form.projects.push(formData);
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
       });
     }
   }
@@ -71283,11 +71330,11 @@ var render = function() {
                   "end-placeholder": "End Date"
                 },
                 model: {
-                  value: _vm.dates,
+                  value: _vm.form.dates,
                   callback: function($$v) {
-                    _vm.dates = $$v
+                    _vm.$set(_vm.form, "dates", $$v)
                   },
-                  expression: "dates"
+                  expression: "form.dates"
                 }
               })
             ],
@@ -71302,7 +71349,7 @@ var render = function() {
                 _vm._v("Set working days to each member.")
               ]),
               _vm._v(" "),
-              _vm._l(_vm.users, function(user) {
+              _vm._l(_vm.users, function(user, index) {
                 return _c(
                   "div",
                   { key: user.id, staticClass: "user-field" },
@@ -71322,11 +71369,11 @@ var render = function() {
                       staticClass: "number-input",
                       attrs: { min: 1, max: 10, "controls-position": "right" },
                       model: {
-                        value: _vm.input,
+                        value: _vm.form.users[index].workingDays,
                         callback: function($$v) {
-                          _vm.input = $$v
+                          _vm.$set(_vm.form.users[index], "workingDays", $$v)
                         },
-                        expression: "input"
+                        expression: "form.users[index].workingDays"
                       }
                     })
                   ],
@@ -71358,11 +71405,15 @@ var render = function() {
                       staticClass: "number-input",
                       attrs: { "controls-position": "right" },
                       model: {
-                        value: _vm.input,
+                        value: _vm.form.projects[index].plannedPoints,
                         callback: function($$v) {
-                          _vm.input = $$v
+                          _vm.$set(
+                            _vm.form.projects[index],
+                            "plannedPoints",
+                            $$v
+                          )
                         },
-                        expression: "input"
+                        expression: "form.projects[index].plannedPoints"
                       }
                     })
                   ],
