@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import AvatarComponrnt from './Avatar.vue'
+import AvatarComponent from './Avatar.vue'
 import project from '../services/project-service'
 import sprint from '../services/sprint-service'
 import user from '../services/user-service'
@@ -59,7 +59,7 @@ export default {
   name: 'sprint-create',
 
   components: {
-    'avatar': AvatarComponrnt
+    'avatar': AvatarComponent
   },
 
   props: {
