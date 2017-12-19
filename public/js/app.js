@@ -71041,7 +71041,7 @@ exports = module.exports = __webpack_require__(8)(undefined);
 
 
 // module
-exports.push([module.i, "\n.datepicker[data-v-bd454b26] {\n  margin-top: 20px;\n}\n.number-input[data-v-bd454b26] {\n  width: 120px;\n}\n.user-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.user-field .user-profile[data-v-bd454b26] {\n    width: 200px;\n}\n.user-field .user-profile .user-name[data-v-bd454b26] {\n      font-size: 16px;\n      vertical-align: middle;\n}\n.available-points[data-v-bd454b26] {\n  padding: 20px;\n}\n.project-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.project-field .project-name[data-v-bd454b26] {\n    font-size: 16px;\n    vertical-align: middle;\n    width: 200px;\n    line-height: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.datepicker[data-v-bd454b26] {\n  margin-top: 20px;\n}\n.number-input[data-v-bd454b26] {\n  width: 110px;\n}\n.user-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.user-field .user-profile[data-v-bd454b26] {\n    width: 200px;\n}\n.user-field .user-profile .user-name[data-v-bd454b26] {\n      font-size: 16px;\n      vertical-align: middle;\n}\n.available-points[data-v-bd454b26] {\n  padding: 20px;\n}\n.project-field[data-v-bd454b26] {\n  margin-top: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.project-field .project-name[data-v-bd454b26] {\n    font-size: 16px;\n    vertical-align: middle;\n    width: 200px;\n    line-height: 40px;\n}\nth[data-v-bd454b26] {\n  padding: 5px 10px;\n  border-bottom: 1px solid #ddd;\n}\ntd[data-v-bd454b26] {\n  padding: 10px 15px;\n}\n.total-row[data-v-bd454b26] {\n  border-top: 1px solid #ddd;\n}\n", ""]);
 
 // exports
 
@@ -71059,6 +71059,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_project_service__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_sprint_service__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(211);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -71784,11 +71808,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("el-input-number", {
                             staticClass: "number-input",
-                            attrs: {
-                              min: 0,
-                              max: 10,
-                              "controls-position": "right"
-                            },
+                            attrs: { min: 0, max: 10, size: "mini" },
                             model: {
                               value: _vm.form.users[index].workingDays,
                               callback: function($$v) {
@@ -71828,47 +71848,69 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "el-tab-pane",
-            { attrs: { label: "Projects" } },
-            [
-              _c("p", { staticClass: "instruction" }, [
-                _vm._v("Set planned story points to each project.")
+          _c("el-tab-pane", { attrs: { label: "Projects" } }, [
+            _c("table", [
+              _c("thead", [
+                _c("tr", [
+                  _c("th", [_vm._v("Project")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Planned Points")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Actual Points")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Logical Points")])
+                ])
               ]),
               _vm._v(" "),
-              _vm._l(_vm.projects, function(project, index) {
-                return _c(
-                  "div",
-                  { key: project.id, staticClass: "project-field" },
-                  [
-                    _c("span", { staticClass: "project-name" }, [
-                      _vm._v(_vm._s(index + 1) + ". " + _vm._s(project.name))
-                    ]),
+              _c(
+                "tbody",
+                [
+                  _vm._l(_vm.projects, function(project, index) {
+                    return _c("tr", { key: project.id }, [
+                      _c("td", [_vm._v(_vm._s(project.name))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c("el-input-number", {
+                            staticClass: "number-input",
+                            attrs: { min: 0, size: "mini" },
+                            model: {
+                              value: _vm.form.projects[index].plannedPoints,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.form.projects[index],
+                                  "plannedPoints",
+                                  $$v
+                                )
+                              },
+                              expression: "form.projects[index].plannedPoints"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("-")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("-")])
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("tr", { staticClass: "total-row" }, [
+                    _c("td", [_vm._v("Total")]),
                     _vm._v(" "),
-                    _c("el-input-number", {
-                      staticClass: "number-input",
-                      attrs: { "controls-position": "right" },
-                      model: {
-                        value: _vm.form.projects[index].plannedPoints,
-                        callback: function($$v) {
-                          _vm.$set(
-                            _vm.form.projects[index],
-                            "plannedPoints",
-                            $$v
-                          )
-                        },
-                        expression: "form.projects[index].plannedPoints"
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.plannedPoints) + "Points")])
-            ],
-            2
-          )
+                    _c("td", [_vm._v(_vm._s(_vm.plannedPoints))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("-")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("-")])
+                  ])
+                ],
+                2
+              )
+            ])
+          ])
         ],
         1
       ),

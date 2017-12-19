@@ -25,26 +25,50 @@
                 class="number-input"
                 v-model="form.users[index].workingDays"
                 :min="0" :max="10"
-                controls-position="right">
+                size="mini">
               </el-input-number>
             </div>
           </el-col>
           <el-col :span="10">
-            <available-points :points="availablePoints" :percentage="availableResource" class="available-points"></available-points>
+            <available-points
+              :points="availablePoints"
+              :percentage="availableResource"
+              class="available-points">
+            </available-points>
           </el-col>
         </el-row>
       </el-tab-pane>
       <el-tab-pane label="Projects">
-        <p class="instruction">Set planned story points to each project.</p>
-        <div class="project-field" v-for="(project, index) in projects" :key="project.id">
-          <span class="project-name">{{ index + 1 }}. {{ project.name }}</span>
-          <el-input-number
-            class="number-input"
-            v-model="form.projects[index].plannedPoints"
-            controls-position="right">
-          </el-input-number>
-        </div>
-        <span>{{ plannedPoints }}Points</span>
+        <table>
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Planned Points</th>
+              <th>Actual Points</th>
+              <th>Logical Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(project, index) in projects" :key="project.id">
+              <td>{{ project.name }}</td>
+              <td>
+                <el-input-number
+                  class="number-input"
+                  v-model="form.projects[index].plannedPoints"
+                  :min="0" size="mini">
+                </el-input-number>
+              </td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr class="total-row">
+              <td>Total</td>
+              <td>{{ plannedPoints }}</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
       </el-tab-pane>
     </el-tabs>
     <div slot="footer" class="dialog-footer">
@@ -193,12 +217,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/variables";
+
 .datepicker {
   margin-top: 20px;
 }
 
 .number-input {
-  width: 120px;
+  width: 110px;
 }
 
 .user-field {
@@ -230,4 +256,18 @@ export default {
     line-height: 40px;
   }
 }
+
+th {
+  padding: 5px 10px;
+  border-bottom: 1px solid $gray-light;
+}
+
+td {
+  padding: 10px 15px;
+}
+
+.total-row {
+  border-top: 1px solid $gray-light;
+}
+
 </style>
