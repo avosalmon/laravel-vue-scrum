@@ -14,20 +14,25 @@
       </el-tab-pane>
       <el-tab-pane label="Resources">
         <p class="instruction">Set working days to each member.</p>
-        <div class="user-field" v-for="(user, index) in users" :key="user.id">
-          <div class="user-profile">
-            <avatar :image-src="user.avatar_url"></avatar>
-            <span class="user-name">{{ user.display_name }}</span>
-          </div>
-          <el-input-number
-            class="number-input"
-            v-model="form.users[index].workingDays"
-            :min="1" :max="10"
-            controls-position="right">
-          </el-input-number>
-        </div>
-        <span>{{ availableResource }}%</span>
-        <span>{{ availablePoints }}Points</span>
+        <el-row>
+          <el-col :span="12">
+            <div class="user-field" v-for="(user, index) in users" :key="user.id">
+              <div class="user-profile">
+                <avatar :image-src="user.avatar_url"></avatar>
+                <span class="user-name">{{ user.display_name }}</span>
+              </div>
+              <el-input-number
+                class="number-input"
+                v-model="form.users[index].workingDays"
+                :min="0" :max="10"
+                controls-position="right">
+              </el-input-number>
+            </div>
+          </el-col>
+          <el-col :span="10">
+            <available-points :points="availablePoints" :percentage="availableResource" class="available-points"></available-points>
+          </el-col>
+        </el-row>
       </el-tab-pane>
       <el-tab-pane label="Projects">
         <p class="instruction">Set planned story points to each project.</p>
@@ -51,6 +56,7 @@
 
 <script>
 import AvatarComponent from './Avatar.vue'
+import AvailablePointsComponent from './AvailablePoints.vue'
 import project from '../services/project-service'
 import sprint from '../services/sprint-service'
 import user from '../services/user-service'
@@ -59,7 +65,8 @@ export default {
   name: 'sprint-create',
 
   components: {
-    'avatar': AvatarComponent
+    'avatar': AvatarComponent,
+    'available-points': AvailablePointsComponent
   },
 
   props: {
@@ -206,6 +213,10 @@ export default {
       vertical-align: middle;
     }
   }
+}
+
+.available-points {
+  padding: 20px;
 }
 
 .project-field {
