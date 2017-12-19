@@ -257,17 +257,22 @@ export default {
   }
 }
 
-th {
-  padding: 5px 10px;
-  border-bottom: 1px solid $gray-light;
-}
+table {
+  margin-top: 10px;
 
-td {
-  padding: 10px 15px;
-}
+  th {
+    padding: 5px 10px;
+    border-bottom: 1px solid $gray-light;
+  }
 
-.total-row {
-  border-top: 1px solid $gray-light;
+  td {
+    padding: 10px 15px;
+    text-align: center;
+  }
+
+  .total-row {
+    border-top: 1px solid $gray-light;
+  }
 }
 
 </style>
