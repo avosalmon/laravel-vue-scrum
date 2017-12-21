@@ -99,7 +99,7 @@ export default {
     },
 
     fetchSprints() {
-      sprint.all().then(response => {
+      sprint.allWith('users,projects').then(response => {
         this.sprints = response.data.sprints
       })
     }

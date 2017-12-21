@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 
 Route::prefix('sprints')->group(function () {
     Route::get('/',                                   '\Avosalmon\Application\Controllers\SprintsController@index');
+    Route::get('/with/{relationships}',               '\Avosalmon\Application\Controllers\SprintsController@with');
     Route::post('/',                                  '\Avosalmon\Application\Controllers\SprintsController@store');
     Route::put('/{id}',                               '\Avosalmon\Application\Controllers\SprintsController@update');
     Route::get('/{id}/with/{relationships}',          '\Avosalmon\Application\Controllers\SprintsController@showWith');

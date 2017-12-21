@@ -50,12 +50,34 @@ class SprintsController extends Controller
      */
     public function index()
     {
-        $this->sprints->setOffset((int)$this->request->input('offset'));
-        $this->sprints->setLimit((int)$this->request->input('limit'));
-        $this->sprints->setSort($this->request->input('sort'));
-        $this->sprints->setDirection($this->request->input('direction'));
+        $this->sprints->setOffset((int)$this->request->input('offset', $this->sprints->getOffset()));
+        $this->sprints->setLimit((int)$this->request->input('limit', $this->sprints->getLimit()));
+        $this->sprints->setSort($this->request->input('sort', $this->sprints->getSort()));
+        $this->sprints->setDirection($this->request->input('direction', $this->sprints->getDirection()));
 
         $sprints = $this->sprints->all();
+        $total   = $this->sprints->count();
+        $meta    = $this->generateResponseMeta($this->sprints, $total);
+
+        return $this->response->json($this->formatResponse($type = 'sprints', $sprints, $meta));
+    }
+
+    /**
+     * Display a listing of the resource with relationships.
+     *
+     * @param  string $relationships
+     * @return Response
+     */
+    public function with($relationships)
+    {
+        $relationships = explode(',', $relationships);
+
+        $this->sprints->setOffset((int)$this->request->input('offset', $this->sprints->getOffset()));
+        $this->sprints->setLimit((int)$this->request->input('limit', $this->sprints->getLimit()));
+        $this->sprints->setSort($this->request->input('sort', $this->sprints->getSort()));
+        $this->sprints->setDirection($this->request->input('direction', $this->sprints->getDirection()));
+
+        $sprints = $this->sprints->allWith($relationships);
         $total   = $this->sprints->count();
         $meta    = $this->generateResponseMeta($this->sprints, $total);
 

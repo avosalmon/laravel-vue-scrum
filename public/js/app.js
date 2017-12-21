@@ -13880,6 +13880,10 @@ var defaultParams = {
     var url = endpoint + this.formatParameters(meta);
     return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get(url);
   },
+  allWith: function allWith(relationships, meta) {
+    var url = endpoint + '/with/' + relationships + this.formatParameters(meta);
+    return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get(url);
+  },
   findWith: function findWith(id, relationships) {
     var url = endpoint + '/' + id + '/with/' + relationships;
     return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get(url);
@@ -70947,7 +70951,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchSprints: function fetchSprints() {
       var _this = this;
 
-      __WEBPACK_IMPORTED_MODULE_0__services_sprint_service__["a" /* default */].all().then(function (response) {
+      __WEBPACK_IMPORTED_MODULE_0__services_sprint_service__["a" /* default */].allWith('users,projects').then(function (response) {
         _this.sprints = response.data.sprints;
       });
     }

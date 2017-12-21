@@ -74,6 +74,26 @@ class Sprints implements SprintsInterface
     }
 
     /**
+     * Get all sprints with nested relationships
+     *
+     * @param  array $relationships
+     * @return \Illuminate\Database\Eloquent\Model|Collection|static
+     */
+    public function allWith($relationships)
+    {
+        if (!$this->validateRelationships($relationships)) {
+            return null;
+        }
+
+        return $this->sprints
+                    ->with($relationships)
+                    ->skip($this->offset)
+                    ->take($this->limit)
+                    ->orderBy($this->sort, $this->direction)
+                    ->get();
+    }
+
+    /**
      * Get count for sprint
      *
      * @return \Illuminate\Database\Eloquent\Model|Collection|static

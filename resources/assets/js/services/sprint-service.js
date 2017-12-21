@@ -15,6 +15,11 @@ export default {
     return http.get(url)
   },
 
+  allWith(relationships, meta) {
+    const url = `${endpoint}/with/${relationships}` + this.formatParameters(meta)
+    return http.get(url)
+  },
+
   findWith(id, relationships) {
     const url = `${endpoint}/${id}/with/${relationships}`
     return http.get(url)

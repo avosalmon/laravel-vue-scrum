@@ -70,6 +70,14 @@ interface SprintsInterface
     public function all();
 
     /**
+     * Get all sprints with nested relationships
+     *
+     * @param  array $relationships
+     * @return \Illuminate\Database\Eloquent\Model|Collection|static
+     */
+    public function allWith($relationships);
+
+    /**
      * Get count for product
      *
      * @return \Illuminate\Database\Eloquent\Model|Collection|static
