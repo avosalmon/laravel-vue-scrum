@@ -71732,7 +71732,8 @@ var render = function() {
       attrs: {
         title: "Create New Sprint",
         "custom-class": "sprint-dialog",
-        visible: _vm.dialogVisible
+        visible: _vm.dialogVisible,
+        width: "700px"
       },
       on: {
         "update:visible": function($event) {

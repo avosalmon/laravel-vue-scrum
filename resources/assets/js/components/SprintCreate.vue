@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Create New Sprint" custom-class="sprint-dialog" :visible.sync="dialogVisible">
+  <el-dialog title="Create New Sprint" custom-class="sprint-dialog" :visible.sync="dialogVisible" width="700px">
     <el-tabs>
       <el-tab-pane label="Dates">
         <p class="instruction">Select start date and end date.</p>
