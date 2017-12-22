@@ -170,11 +170,10 @@ export default {
       user.all().then(response => {
         this.users = response.data.users
         for (const user of this.users) {
-          const formData = {
+          this.form.users.push({
             userId: user.id,
             workingDays: 10
-          }
-          this.form.users.push(formData)
+          })
         }
       })
     },
@@ -183,11 +182,11 @@ export default {
       project.all().then(response => {
         this.projects = response.data.projects
         for (const project of this.projects) {
-          const formData = {
+          this.form.projects.push({
             projectId: project.id,
-            plannedPoints: 0
-          }
-          this.form.projects.push(formData)
+            plannedPoints: 0,
+            actualPoints: null,
+          })
         }
       })
     }
@@ -204,6 +203,10 @@ export default {
     },
 
     availablePoints: function() {
+      if (!this.velocity) {
+        return 0;
+      }
+
       return Math.round(this.velocity * this.availableResource / 100)
     },
 

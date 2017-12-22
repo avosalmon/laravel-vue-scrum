@@ -71285,11 +71285,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           for (var _iterator3 = _this2.users[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
             var _user2 = _step3.value;
 
-            var formData = {
+            _this2.form.users.push({
               userId: _user2.id,
               workingDays: 10
-            };
-            _this2.form.users.push(formData);
+            });
           }
         } catch (err) {
           _didIteratorError3 = true;
@@ -71320,11 +71319,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           for (var _iterator4 = _this3.projects[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
             var _project2 = _step4.value;
 
-            var formData = {
+            _this3.form.projects.push({
               projectId: _project2.id,
-              plannedPoints: 0
-            };
-            _this3.form.projects.push(formData);
+              plannedPoints: 0,
+              actualPoints: null
+            });
           }
         } catch (err) {
           _didIteratorError4 = true;
@@ -71355,6 +71354,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     availablePoints: function availablePoints() {
+      if (!this.velocity) {
+        return 0;
+      }
+
       return Math.round(this.velocity * this.availableResource / 100);
     },
 
@@ -72029,13 +72032,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'sprint-edit',
 
+  props: {
+    velocity: {
+      type: Number,
+      required: true
+    }
+  },
+
   data: function data() {
     return {
-      sprint: {},
       dialogVisible: false,
-      dates: [],
-      formLabelWidth: '120px',
-      form: {}
+      form: {
+        dates: [],
+        users: [],
+        projects: []
+      }
     };
   },
 
@@ -72050,7 +72061,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     open: function open(sprint) {
       this.sprint = sprint;
-      this.dates = [this.sprint.start_date, this.sprint.end_date];
+      this.form.dates = [this.sprint.start_date, this.sprint.end_date];
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = sprint.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var user = _step.value;
+
+          this.form.users.push({
+            userId: user.id,
+            workingDays: user.pivot.working_days
+          });
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = sprint.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var project = _step2.value;
+
+          this.form.projects.push({
+            projectId: project.id,
+            plannedPoints: project.pivot.planned_points,
+            actualPoints: project.pivot.actual_points
+          });
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
       this.dialogVisible = true;
     },
     close: function close() {
@@ -72350,7 +72419,10 @@ var render = function() {
         on: { created: _vm.fetchSprints }
       }),
       _vm._v(" "),
-      _c("sprint-edit", { ref: "sprintEdit" })
+      _c("sprint-edit", {
+        ref: "sprintEdit",
+        attrs: { velocity: _vm.velocity }
+      })
     ],
     1
   )

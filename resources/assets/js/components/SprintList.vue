@@ -40,7 +40,7 @@
       </el-table-column>
     </el-table>
     <sprint-create ref="sprintCreate" :velocity="velocity" @created="fetchSprints"></sprint-create>
-    <sprint-edit ref="sprintEdit"></sprint-edit>
+    <sprint-edit ref="sprintEdit" :velocity="velocity"></sprint-edit>
   </div>
 </template>
 

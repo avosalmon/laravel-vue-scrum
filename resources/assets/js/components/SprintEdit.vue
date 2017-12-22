@@ -20,13 +20,21 @@ import sprint from '../services/sprint-service'
 export default {
   name: 'sprint-edit',
 
+  props: {
+    velocity: {
+      type: Number,
+      required: true
+    }
+  },
+
   data () {
     return {
-      sprint: {},
       dialogVisible: false,
-      dates: [],
-      formLabelWidth: '120px',
-      form: {}
+      form: {
+        dates: [],
+        users: [],
+        projects: []
+      }
     }
   },
 
@@ -39,17 +47,32 @@ export default {
 
     open(sprint) {
       this.sprint = sprint
-      this.dates = [
+      this.form.dates = [
         this.sprint.start_date,
         this.sprint.end_date
       ]
+
+      for (const user of sprint.users) {
+        this.form.users.push({
+          userId: user.id,
+          workingDays: user.pivot.working_days
+        })
+      }
+
+      for (const project of sprint.projects) {
+        this.form.projects.push({
+          projectId: project.id,
+          plannedPoints: project.pivot.planned_points,
+          actualPoints: project.pivot.actual_points,
+        })
+      }
+
       this.dialogVisible = true
     },
 
     close() {
       this.dialogVisible = false
-    },
-
+    }
   }
 };
 </script>
