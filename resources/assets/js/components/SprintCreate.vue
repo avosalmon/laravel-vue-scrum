@@ -133,17 +133,15 @@ export default {
         let promises = []
 
         for (const user of this.form.users) {
-          const data = {
+          promises.push(sprint.attachUser(createdSprint.id, user.userId, {
             working_days: user.workingDays
-          }
-          promises.push(sprint.attachUser(createdSprint.id, user.userId, data))
+          }))
         }
 
         for (const project of this.form.projects) {
-          const data = {
+          promises.push(sprint.attachProject(createdSprint.id, project.projectId, {
             planned_points: project.plannedPoints
-          }
-          promises.push(sprint.attachProject(createdSprint.id, project.projectId, data))
+          }))
         }
 
         axios.all(promises).then(() => {
