@@ -15,7 +15,8 @@
         "element-ui": "^2.0.8",
         "jquery": "^3.2",
         "vue": "^2.5.7",
-        "vue-router": "^3.0.1"
+        "vue-router": "^3.0.1",
+        "vuex": "^3.0.1"
     },
     "devDependencies": {
         "commitizen": "^2.9.6",
