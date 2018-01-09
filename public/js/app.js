@@ -13876,12 +13876,12 @@ var defaultParams = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  all: function all(meta) {
-    var url = endpoint + this.formatParameters(meta);
+  all: function all(params) {
+    var url = endpoint + this.formatParameters(params);
     return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get(url);
   },
-  allWith: function allWith(relationships, meta) {
-    var url = endpoint + '/with/' + relationships + this.formatParameters(meta);
+  allWith: function allWith(relationships, params) {
+    var url = endpoint + '/with/' + relationships + this.formatParameters(params);
     return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get(url);
   },
   findWith: function findWith(id, relationships) {
@@ -68076,6 +68076,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_SprintList_vue__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_SprintList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_SprintList_vue__);
+
 
 
 
@@ -68085,7 +68088,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
   mode: 'history',
   routes: [{
     path: '/sprints',
-    component: __webpack_require__(192)
+    component: __WEBPACK_IMPORTED_MODULE_2__components_SprintList_vue___default.a
   }, {
     path: '*',
     redirect: '/sprints'
@@ -71207,10 +71210,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           for (var _iterator = _this.form.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _user = _step.value;
 
-            var data = {
+            promises.push(__WEBPACK_IMPORTED_MODULE_3__services_sprint_service__["a" /* default */].attachUser(createdSprint.id, _user.userId, {
               working_days: _user.workingDays
-            };
-            promises.push(__WEBPACK_IMPORTED_MODULE_3__services_sprint_service__["a" /* default */].attachUser(createdSprint.id, _user.userId, data));
+            }));
           }
         } catch (err) {
           _didIteratorError = true;
@@ -71235,10 +71237,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           for (var _iterator2 = _this.form.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
             var _project = _step2.value;
 
-            var data = {
+            promises.push(__WEBPACK_IMPORTED_MODULE_3__services_sprint_service__["a" /* default */].attachProject(createdSprint.id, _project.projectId, {
               planned_points: _project.plannedPoints
-            };
-            promises.push(__WEBPACK_IMPORTED_MODULE_3__services_sprint_service__["a" /* default */].attachProject(createdSprint.id, _project.projectId, data));
+            }));
           }
         } catch (err) {
           _didIteratorError2 = true;
@@ -71673,8 +71674,8 @@ var defaultParams = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  all: function all(meta) {
-    var url = endpoint + this.formatParameters(meta);
+  all: function all(params) {
+    var url = endpoint + this.formatParameters(params);
     return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get(url);
   },
   formatParameters: function formatParameters(params) {
@@ -71708,8 +71709,8 @@ var defaultParams = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  all: function all(meta) {
-    var url = endpoint + this.formatParameters(meta);
+  all: function all(params) {
+    var url = endpoint + this.formatParameters(params);
     return __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get(url);
   },
   formatParameters: function formatParameters(params) {

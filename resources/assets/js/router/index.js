@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import SprintList from '../components/SprintList.vue'
 
 Vue.use(Router)
 
@@ -8,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/sprints',
-      component: require('./components/SprintList.vue')
+      component: SprintList
     },
     {
       path: '*',
