@@ -39,21 +39,21 @@
         label="Logical Points">
       </el-table-column>
     </el-table>
-    <sprint-create ref="sprintCreate" :velocity="velocity" :users="users" :projects="projects" @created="getSprints" />
+    <sprint-create ref="sprintCreate" :velocity="velocity" :users="users" :projects="projects" />
     <sprint-edit ref="sprintEdit" :velocity="velocity" />
   </div>
 </template>
 
 <script>
-import SprintCreateComponent from './SprintCreate.vue'
-import SprintEditComponent from './SprintEdit.vue'
-import FabComponent from '../../../components/Fab.vue'
+import SprintCreate from './SprintCreate.vue'
+import SprintEdit from './SprintEdit.vue'
+import Fab from '../../../components/Fab.vue'
 
 export default {
   components: {
-    'sprint-create': SprintCreateComponent,
-    'sprint-edit': SprintEditComponent,
-    'fab': FabComponent
+    'sprint-create': SprintCreate,
+    'sprint-edit': SprintEdit,
+    'fab': Fab
   },
 
   props: {
@@ -76,10 +76,6 @@ export default {
   },
 
   methods: {
-    getSprints() {
-      this.$store.dispatch('$_sprints/getSprints');
-    },
-
     openCreateDialog() {
       this.$refs.sprintCreate.open()
     },

@@ -71811,7 +71811,76 @@ var getSprints = function getSprints(_ref) {
 };
 
 var createSprint = function createSprint(_ref2, data) {
-  var commit = _ref2.commit;
+  var dispatch = _ref2.dispatch,
+      commit = _ref2.commit;
+
+  __WEBPACK_IMPORTED_MODULE_0__services_sprints_service__["a" /* default */].create(data.sprint).then(function (response) {
+    var createdSprint = response.data.sprint;
+    var promises = [];
+
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = data.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var user = _step.value;
+
+        promises.push(__WEBPACK_IMPORTED_MODULE_0__services_sprints_service__["a" /* default */].attachUser(createdSprint.id, user.userId, {
+          working_days: user.workingDays
+        }));
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+      for (var _iterator2 = data.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        var project = _step2.value;
+
+        promises.push(__WEBPACK_IMPORTED_MODULE_0__services_sprints_service__["a" /* default */].attachProject(createdSprint.id, project.projectId, {
+          planned_points: project.plannedPoints
+        }));
+      }
+    } catch (err) {
+      _didIteratorError2 = true;
+      _iteratorError2 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+          _iterator2.return();
+        }
+      } finally {
+        if (_didIteratorError2) {
+          throw _iteratorError2;
+        }
+      }
+    }
+
+    axios.all(promises).then(function () {
+      dispatch('getSprints');
+      // this.$message({
+      //   message: 'Sprint has been created!',
+      //   type: 'success',
+      //   duration: 5000
+      // })
+    });
+  });
 };
 
 var updateSprint = function updateSprint(_ref3, data) {
@@ -72194,9 +72263,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    getSprints: function getSprints() {
-      this.$store.dispatch('$_sprints/getSprints');
-    },
     openCreateDialog: function openCreateDialog() {
       this.$refs.sprintCreate.open();
     },
@@ -72431,9 +72497,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     create: function create() {
-      var _this = this;
-
-      var sprintData = {
+      var sprint = {
         start_date: new Date(this.form.dates[0]).toLocaleDateString(),
         end_date: new Date(this.form.dates[1]).toLocaleDateString(),
         available_resource: this.availableResource,
@@ -72441,21 +72505,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         planned_points: this.plannedPoints
       };
 
-      __WEBPACK_IMPORTED_MODULE_2__services_sprints_service__["a" /* default */].create(sprintData).then(function (response) {
-        var createdSprint = response.data.sprint;
-        var promises = [];
+      var data = {
+        sprint: sprint,
+        users: this.form.users,
+        projects: this.form.projects
+      };
 
+      this.$store.dispatch('$_sprints/createSprint', data);
+      this.close();
+    },
+    open: function open() {
+      if (!this.form.users.length) {
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
 
         try {
-          for (var _iterator = _this.form.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          for (var _iterator = this.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var user = _step.value;
 
-            promises.push(__WEBPACK_IMPORTED_MODULE_2__services_sprints_service__["a" /* default */].attachUser(createdSprint.id, user.userId, {
-              working_days: user.workingDays
-            }));
+            this.form.users.push({
+              userId: user.id,
+              workingDays: 10
+            });
           }
         } catch (err) {
           _didIteratorError = true;
@@ -72471,18 +72543,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
           }
         }
+      }
 
+      if (!this.form.projects.length) {
         var _iteratorNormalCompletion2 = true;
         var _didIteratorError2 = false;
         var _iteratorError2 = undefined;
 
         try {
-          for (var _iterator2 = _this.form.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          for (var _iterator2 = this.projects[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
             var project = _step2.value;
 
-            promises.push(__WEBPACK_IMPORTED_MODULE_2__services_sprints_service__["a" /* default */].attachProject(createdSprint.id, project.projectId, {
-              planned_points: project.plannedPoints
-            }));
+            this.form.projects.push({
+              projectId: project.id,
+              plannedPoints: 0,
+              actualPoints: null
+            });
           }
         } catch (err) {
           _didIteratorError2 = true;
@@ -72495,78 +72571,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } finally {
             if (_didIteratorError2) {
               throw _iteratorError2;
-            }
-          }
-        }
-
-        axios.all(promises).then(function () {
-          _this.$message({
-            message: 'Sprint has been created!',
-            type: 'success',
-            duration: 5000
-          });
-          _this.$emit('created');
-          _this.close();
-        });
-      });
-    },
-    open: function open() {
-      if (!this.form.users.length) {
-        var _iteratorNormalCompletion3 = true;
-        var _didIteratorError3 = false;
-        var _iteratorError3 = undefined;
-
-        try {
-          for (var _iterator3 = this.users[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var user = _step3.value;
-
-            this.form.users.push({
-              userId: user.id,
-              workingDays: 10
-            });
-          }
-        } catch (err) {
-          _didIteratorError3 = true;
-          _iteratorError3 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-              _iterator3.return();
-            }
-          } finally {
-            if (_didIteratorError3) {
-              throw _iteratorError3;
-            }
-          }
-        }
-      }
-
-      if (!this.form.projects.length) {
-        var _iteratorNormalCompletion4 = true;
-        var _didIteratorError4 = false;
-        var _iteratorError4 = undefined;
-
-        try {
-          for (var _iterator4 = this.projects[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            var project = _step4.value;
-
-            this.form.projects.push({
-              projectId: project.id,
-              plannedPoints: 0,
-              actualPoints: null
-            });
-          }
-        } catch (err) {
-          _didIteratorError4 = true;
-          _iteratorError4 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion4 && _iterator4.return) {
-              _iterator4.return();
-            }
-          } finally {
-            if (_didIteratorError4) {
-              throw _iteratorError4;
             }
           }
         }
@@ -73585,8 +73589,7 @@ var render = function() {
           velocity: _vm.velocity,
           users: _vm.users,
           projects: _vm.projects
-        },
-        on: { created: _vm.getSprints }
+        }
       }),
       _vm._v(" "),
       _c("sprint-edit", {

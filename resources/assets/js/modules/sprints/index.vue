@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 import store from './_store';
 import SprintList from './_components/SprintList';
 
@@ -22,13 +22,13 @@ export default {
   },
 
   created() {
-    this.$store.registerModule('$_sprints', store);
+    this.$store.registerModule('$_sprints', store)
   },
 
   mounted() {
-    this.$store.dispatch('$_sprints/getSprints');
-    this.$store.dispatch('$_sprints/getUsers');
-    this.$store.dispatch('$_sprints/getProjects');
+    this.$store.dispatch('$_sprints/getSprints')
+    this.$store.dispatch('$_sprints/getUsers')
+    this.$store.dispatch('$_sprints/getProjects')
   },
 }
 </script>

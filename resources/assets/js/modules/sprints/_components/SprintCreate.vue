@@ -79,16 +79,16 @@
 </template>
 
 <script>
-import AvatarComponent from '../../../components/Avatar.vue'
-import AvailablePointsComponent from './AvailablePoints.vue'
+import Avatar from '../../../components/Avatar.vue'
+import AvailablePoints from './AvailablePoints.vue'
 import sprint from '../../../services/sprints-service'
 
 export default {
   name: 'sprint-create',
 
   components: {
-    'avatar': AvatarComponent,
-    'available-points': AvailablePointsComponent
+    'avatar': Avatar,
+    'available-points': AvailablePoints
   },
 
   props: {
@@ -119,7 +119,7 @@ export default {
 
   methods: {
     create() {
-      const sprintData = {
+      const sprint = {
         start_date: new Date(this.form.dates[0]).toLocaleDateString(),
         end_date: new Date(this.form.dates[1]).toLocaleDateString(),
         available_resource: this.availableResource,
@@ -127,32 +127,14 @@ export default {
         planned_points: this.plannedPoints
       }
 
-      sprint.create(sprintData).then(response => {
-        const createdSprint = response.data.sprint
-        let promises = []
+      const data = {
+        sprint: sprint,
+        users: this.form.users,
+        projects: this.form.projects
+      }
 
-        for (const user of this.form.users) {
-          promises.push(sprint.attachUser(createdSprint.id, user.userId, {
-            working_days: user.workingDays
-          }))
-        }
-
-        for (const project of this.form.projects) {
-          promises.push(sprint.attachProject(createdSprint.id, project.projectId, {
-            planned_points: project.plannedPoints
-          }))
-        }
-
-        axios.all(promises).then(() => {
-          this.$message({
-            message: 'Sprint has been created!',
-            type: 'success',
-            duration: 5000
-          });
-          this.$emit('created')
-          this.close()
-        })
-      })
+      this.$store.dispatch('$_sprints/createSprint', data);
+      this.close()
     },
 
     open() {

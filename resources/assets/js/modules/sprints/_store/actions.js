@@ -9,8 +9,32 @@ const getSprints = ({ commit }) => {
     })
 }
 
-const createSprint = ({ commit }, data) => {
+const createSprint = ({ dispatch, commit }, data) => {
+  sprints.create(data.sprint).then(response => {
+    const createdSprint = response.data.sprint
+    let promises = []
 
+    for (const user of data.users) {
+      promises.push(sprints.attachUser(createdSprint.id, user.userId, {
+        working_days: user.workingDays
+      }))
+    }
+
+    for (const project of data.projects) {
+      promises.push(sprints.attachProject(createdSprint.id, project.projectId, {
+        planned_points: project.plannedPoints
+      }))
+    }
+
+    axios.all(promises).then(() => {
+      dispatch('getSprints')
+      // this.$message({
+      //   message: 'Sprint has been created!',
+      //   type: 'success',
+      //   duration: 5000
+      // })
+    })
+  })
 }
 
 const updateSprint = ({ commit }, data) => {
