@@ -10,13 +10,13 @@ const defaultParams = {
 }
 
 export default {
-  all(meta) {
-    const url = endpoint + this.formatParameters(meta)
+  all(params) {
+    const url = endpoint + this.formatParameters(params)
     return http.get(url)
   },
 
-  allWith(relationships, meta) {
-    const url = `${endpoint}/with/${relationships}` + this.formatParameters(meta)
+  allWith(relationships, params) {
+    const url = `${endpoint}/with/${relationships}` + this.formatParameters(params)
     return http.get(url)
   },
 
