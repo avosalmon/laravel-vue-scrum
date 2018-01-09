@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import sprint from '../services/sprint-service'
+import sprint from '../../../services/sprints-service'
 
 export default {
   name: 'sprint-edit',

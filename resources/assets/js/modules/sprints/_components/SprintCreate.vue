@@ -79,11 +79,9 @@
 </template>
 
 <script>
-import AvatarComponent from './Avatar.vue'
+import AvatarComponent from '../../../components/Avatar.vue'
 import AvailablePointsComponent from './AvailablePoints.vue'
-import project from '../services/project-service'
-import sprint from '../services/sprint-service'
-import user from '../services/user-service'
+import sprint from '../../../services/sprints-service'
 
 export default {
   name: 'sprint-create',
@@ -97,25 +95,26 @@ export default {
     velocity: {
       type: Number,
       required: true
+    },
+    users: {
+      type: Array,
+      required: true
+    },
+    projects: {
+      type: Array,
+      required: true
     }
   },
 
   data () {
     return {
       dialogVisible: false,
-      users: [],
-      projects: [],
       form: {
         dates: [],
         users: [],
         projects: []
       }
     }
-  },
-
-  mounted() {
-    this.fetchUsers()
-    this.fetchProjects()
   },
 
   methods: {
@@ -157,28 +156,16 @@ export default {
     },
 
     open() {
-      this.dialogVisible = true
-    },
-
-    close() {
-      this.dialogVisible = false
-    },
-
-    fetchUsers() {
-      user.all().then(response => {
-        this.users = response.data.users
+      if (!this.form.users.length) {
         for (const user of this.users) {
           this.form.users.push({
             userId: user.id,
             workingDays: 10
           })
         }
-      })
-    },
+      }
 
-    fetchProjects() {
-      project.all().then(response => {
-        this.projects = response.data.projects
+      if (!this.form.projects.length) {
         for (const project of this.projects) {
           this.form.projects.push({
             projectId: project.id,
@@ -186,7 +173,13 @@ export default {
             actualPoints: null,
           })
         }
-      })
+      }
+
+      this.dialogVisible = true
+    },
+
+    close() {
+      this.dialogVisible = false
     }
   },
 
@@ -218,7 +211,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../sass/variables";
+@import "../../../../sass/variables";
 
 .datepicker {
   margin-top: 20px;
