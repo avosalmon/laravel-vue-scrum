@@ -133,7 +133,15 @@ export default {
         projects: this.form.projects
       }
 
-      this.$store.dispatch('$_sprints/createSprint', data);
+      this.$store.dispatch('$_sprints/createSprint', data)
+          .then(() => {
+            this.$message({
+              message: 'Sprint has been created!',
+              type: 'success',
+              duration: 5000
+            })
+          })
+
       this.close()
     },
 
