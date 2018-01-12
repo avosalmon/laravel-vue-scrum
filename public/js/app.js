@@ -63972,11 +63972,26 @@ exports.default = {
           type: 'success',
           duration: 5000
         });
-      });
 
-      this.close();
+        _this.resetForm();
+        _this.close();
+      });
     },
     open: function open() {
+      this.initForm();
+      this.dialogVisible = true;
+    },
+    close: function close() {
+      this.dialogVisible = false;
+    },
+    resetForm: function resetForm() {
+      this.form = {
+        dates: [],
+        users: [],
+        projects: []
+      };
+    },
+    initForm: function initForm() {
       if (!this.form.users.length) {
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
@@ -64037,11 +64052,6 @@ exports.default = {
           }
         }
       }
-
-      this.dialogVisible = true;
-    },
-    close: function close() {
-      this.dialogVisible = false;
     }
   },
 
@@ -64070,6 +64080,9 @@ exports.default = {
     }
   }
 }; //
+//
+//
+//
 //
 //
 //
@@ -64479,22 +64492,24 @@ var render = function() {
                 _vm._v("Select start date and end date.")
               ]),
               _vm._v(" "),
-              _c("el-date-picker", {
-                staticClass: "datepicker",
-                attrs: {
-                  type: "daterange",
-                  "range-separator": "To",
-                  "start-placeholder": "Start Date",
-                  "end-placeholder": "End Date"
-                },
-                model: {
-                  value: _vm.form.dates,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "dates", $$v)
-                  },
-                  expression: "form.dates"
-                }
-              })
+              _vm.form.dates.length
+                ? _c("el-date-picker", {
+                    staticClass: "datepicker",
+                    attrs: {
+                      type: "daterange",
+                      "range-separator": "To",
+                      "start-placeholder": "Start Date",
+                      "end-placeholder": "End Date"
+                    },
+                    model: {
+                      value: _vm.form.dates,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "dates", $$v)
+                      },
+                      expression: "form.dates"
+                    }
+                  })
+                : _vm._e()
             ],
             1
           ),
@@ -64533,21 +64548,23 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c("el-input-number", {
-                            staticClass: "number-input",
-                            attrs: { min: 0, max: 10, size: "mini" },
-                            model: {
-                              value: _vm.form.users[index].workingDays,
-                              callback: function($$v) {
-                                _vm.$set(
-                                  _vm.form.users[index],
-                                  "workingDays",
-                                  $$v
-                                )
-                              },
-                              expression: "form.users[index].workingDays"
-                            }
-                          })
+                          _vm.form.users.length
+                            ? _c("el-input-number", {
+                                staticClass: "number-input",
+                                attrs: { min: 0, max: 10, size: "mini" },
+                                model: {
+                                  value: _vm.form.users[index].workingDays,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.form.users[index],
+                                      "workingDays",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "form.users[index].workingDays"
+                                }
+                              })
+                            : _vm._e()
                         ],
                         1
                       )
@@ -64599,21 +64616,24 @@ var render = function() {
                       _c(
                         "td",
                         [
-                          _c("el-input-number", {
-                            staticClass: "number-input",
-                            attrs: { min: 0, size: "mini" },
-                            model: {
-                              value: _vm.form.projects[index].plannedPoints,
-                              callback: function($$v) {
-                                _vm.$set(
-                                  _vm.form.projects[index],
-                                  "plannedPoints",
-                                  $$v
-                                )
-                              },
-                              expression: "form.projects[index].plannedPoints"
-                            }
-                          })
+                          _vm.form.projects.length
+                            ? _c("el-input-number", {
+                                staticClass: "number-input",
+                                attrs: { min: 0, size: "mini" },
+                                model: {
+                                  value: _vm.form.projects[index].plannedPoints,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.form.projects[index],
+                                      "plannedPoints",
+                                      $$v
+                                    )
+                                  },
+                                  expression:
+                                    "form.projects[index].plannedPoints"
+                                }
+                              })
+                            : _vm._e()
                         ],
                         1
                       ),

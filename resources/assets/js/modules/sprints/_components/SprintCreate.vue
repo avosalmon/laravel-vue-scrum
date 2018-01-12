@@ -5,6 +5,7 @@
         <p class="instruction">Select start date and end date.</p>
         <el-date-picker
           class="datepicker"
+          v-if="form.dates.length"
           v-model="form.dates"
           type="daterange"
           range-separator="To"
@@ -23,6 +24,7 @@
               </div>
               <el-input-number
                 class="number-input"
+                v-if="form.users.length"
                 v-model="form.users[index].workingDays"
                 :min="0" :max="10"
                 size="mini">
@@ -54,6 +56,7 @@
               <td>
                 <el-input-number
                   class="number-input"
+                  v-if="form.projects.length"
                   v-model="form.projects[index].plannedPoints"
                   :min="0" size="mini">
                 </el-input-number>
@@ -140,12 +143,30 @@ export default {
               type: 'success',
               duration: 5000
             })
-          })
 
-      this.close()
+            this.resetForm()
+            this.close()
+          })
     },
 
     open() {
+      this.initForm()
+      this.dialogVisible = true
+    },
+
+    close() {
+      this.dialogVisible = false
+    },
+
+    resetForm() {
+      this.form = {
+        dates: [],
+        users: [],
+        projects: []
+      }
+    },
+
+    initForm() {
       if (!this.form.users.length) {
         for (const user of this.users) {
           this.form.users.push({
@@ -164,12 +185,6 @@ export default {
           })
         }
       }
-
-      this.dialogVisible = true
-    },
-
-    close() {
-      this.dialogVisible = false
     }
   },
 
