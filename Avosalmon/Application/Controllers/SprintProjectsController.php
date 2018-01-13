@@ -76,10 +76,8 @@ class SprintProjectsController extends Controller
             'actual_points'  => 'integer'
         ]);
 
-        if ($this->sprintProjects->update($sprintId, $projectId, $input)) {
-            return $this->response->json();
-        }
+        $this->sprintProjects->update($sprintId, $projectId, $input);
 
-        return $this->response->json([], 404);
+        return $this->response->json();
     }
 }
