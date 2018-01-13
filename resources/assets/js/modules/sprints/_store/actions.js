@@ -31,7 +31,7 @@ const createSprint = async ({ dispatch, commit }, data) => {
   dispatch('getSprints')
 }
 
-const updateSprint = ({ commit }, data) => {
+const updateSprint = async ({ commit }, data) => {
   const response = await sprints.update(data.sprint.id, data.sprint)
   let promises = []
 
