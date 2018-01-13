@@ -74,10 +74,8 @@ class SprintUsersController extends Controller
             'working_days' => 'integer'
         ]);
 
-        if ($this->sprintUsers->update($sprintId, $userId, $input)) {
-            return $this->response->json();
-        }
+        $this->sprintUsers->update($sprintId, $userId, $input);
 
-        return $this->response->json([], 404);
+        return $this->response->json();
     }
 }

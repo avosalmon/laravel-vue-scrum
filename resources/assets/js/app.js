@@ -22,12 +22,14 @@ Vue.use(ElementUI, { locale })
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-import App from './components/App'
-import router from './router';
+import App from './App.vue'
+import router from './router'
+import store from './store'
 
 const app = new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
-});
+})

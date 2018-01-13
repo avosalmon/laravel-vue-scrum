@@ -10,13 +10,13 @@ const defaultParams = {
 }
 
 export default {
-  all(meta) {
-    const url = endpoint + this.formatParameters(meta)
+  all(params) {
+    const url = endpoint + this.formatParameters(params)
     return http.get(url)
   },
 
-  allWith(relationships, meta) {
-    const url = `${endpoint}/with/${relationships}` + this.formatParameters(meta)
+  allWith(relationships, params) {
+    const url = `${endpoint}/with/${relationships}` + this.formatParameters(params)
     return http.get(url)
   },
 
@@ -39,9 +39,19 @@ export default {
     return http.post(url, data)
   },
 
+  updateUser(sprintId, userId, data) {
+    const url = `${endpoint}/${sprintId}/users/${userId}`
+    return http.put(url, data)
+  },
+
   attachProject(sprintId, projectId, data) {
     const url = `${endpoint}/${sprintId}/projects/${projectId}`
     return http.post(url, data)
+  },
+
+  updateProject(sprintId, projectId, data) {
+    const url = `${endpoint}/${sprintId}/projects/${projectId}`
+    return http.put(url, data)
   },
 
   formatParameters(params) {

@@ -1,5 +1,6 @@
 <template>
-  <el-dialog title="Create New Sprint" custom-class="sprint-dialog" :visible.sync="dialogVisible" width="700px">
+  <el-dialog title="Create New Sprint" custom-class="sprint-dialog"
+    :visible.sync="dialogVisible" width="700px">
     <el-tabs>
       <el-tab-pane label="Dates">
         <p class="instruction">Select start date and end date.</p>
@@ -23,6 +24,7 @@
               </div>
               <el-input-number
                 class="number-input"
+                v-if="form.users.length"
                 v-model="form.users[index].workingDays"
                 :min="0" :max="10"
                 size="mini">
@@ -45,7 +47,6 @@
               <th>Project</th>
               <th>Planned Points</th>
               <th>Actual Points</th>
-              <th>Logical Points</th>
             </tr>
           </thead>
           <tbody>
@@ -54,17 +55,16 @@
               <td>
                 <el-input-number
                   class="number-input"
+                  v-if="form.projects.length"
                   v-model="form.projects[index].plannedPoints"
                   :min="0" size="mini">
                 </el-input-number>
               </td>
               <td>-</td>
-              <td>-</td>
             </tr>
             <tr class="total-row">
               <td>Total</td>
-              <td>{{ plannedPoints }}</td>
-              <td>-</td>
+              <td>{{ totalPlannedPoints }}</td>
               <td>-</td>
             </tr>
           </tbody>
@@ -79,23 +79,27 @@
 </template>
 
 <script>
-import AvatarComponent from './Avatar.vue'
-import AvailablePointsComponent from './AvailablePoints.vue'
-import project from '../services/project-service'
-import sprint from '../services/sprint-service'
-import user from '../services/user-service'
+import Avatar from '../../../components/Avatar.vue'
+import AvailablePoints from './AvailablePoints.vue'
+import sprint from '../../../services/sprints-service'
 
 export default {
-  name: 'sprint-create',
-
   components: {
-    'avatar': AvatarComponent,
-    'available-points': AvailablePointsComponent
+    'avatar': Avatar,
+    'available-points': AvailablePoints
   },
 
   props: {
     velocity: {
       type: Number,
+      required: true
+    },
+    users: {
+      type: Array,
+      required: true
+    },
+    projects: {
+      type: Array,
       required: true
     }
   },
@@ -103,8 +107,6 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      users: [],
-      projects: [],
       form: {
         dates: [],
         users: [],
@@ -113,50 +115,38 @@ export default {
     }
   },
 
-  mounted() {
-    this.fetchUsers()
-    this.fetchProjects()
-  },
-
   methods: {
     create() {
-      const sprintData = {
+      const sprint = {
         start_date: new Date(this.form.dates[0]).toLocaleDateString(),
         end_date: new Date(this.form.dates[1]).toLocaleDateString(),
+        velocity: this.velocity,
         available_resource: this.availableResource,
         available_points: this.availablePoints,
-        planned_points: this.plannedPoints
+        planned_points: this.totalPlannedPoints
       }
 
-      sprint.create(sprintData).then(response => {
-        const createdSprint = response.data.sprint
-        let promises = []
+      const data = {
+        sprint: sprint,
+        users: this.form.users,
+        projects: this.form.projects
+      }
 
-        for (const user of this.form.users) {
-          promises.push(sprint.attachUser(createdSprint.id, user.userId, {
-            working_days: user.workingDays
-          }))
-        }
+      this.$store.dispatch('$_sprints/createSprint', data)
+          .then(() => {
+            this.$message({
+              message: 'Sprint has been created!',
+              type: 'success',
+              duration: 5000
+            })
 
-        for (const project of this.form.projects) {
-          promises.push(sprint.attachProject(createdSprint.id, project.projectId, {
-            planned_points: project.plannedPoints
-          }))
-        }
-
-        axios.all(promises).then(() => {
-          this.$message({
-            message: 'Sprint has been created!',
-            type: 'success',
-            duration: 5000
-          });
-          this.$emit('created')
-          this.close()
-        })
-      })
+            this.resetForm()
+            this.close()
+          })
     },
 
     open() {
+      this.initForm()
       this.dialogVisible = true
     },
 
@@ -164,21 +154,25 @@ export default {
       this.dialogVisible = false
     },
 
-    fetchUsers() {
-      user.all().then(response => {
-        this.users = response.data.users
+    resetForm() {
+      this.form = {
+        dates: [],
+        users: [],
+        projects: []
+      }
+    },
+
+    initForm() {
+      if (!this.form.users.length) {
         for (const user of this.users) {
           this.form.users.push({
             userId: user.id,
             workingDays: 10
           })
         }
-      })
-    },
+      }
 
-    fetchProjects() {
-      project.all().then(response => {
-        this.projects = response.data.projects
+      if (!this.form.projects.length) {
         for (const project of this.projects) {
           this.form.projects.push({
             projectId: project.id,
@@ -186,7 +180,7 @@ export default {
             actualPoints: null,
           })
         }
-      })
+      }
     }
   },
 
@@ -208,7 +202,7 @@ export default {
       return Math.round(this.velocity * this.availableResource / 100)
     },
 
-    plannedPoints: function() {
+    totalPlannedPoints: function() {
       return this.form.projects.reduce((sum, project) => {
         return sum + project.plannedPoints;
       }, 0)
@@ -218,7 +212,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../sass/variables";
+@import "../../../../sass/variables";
 
 .datepicker {
   margin-top: 20px;
@@ -273,6 +267,7 @@ table {
 
   .total-row {
     border-top: 1px solid $gray-light;
+    font-weight: bold;
   }
 }
 

@@ -97,6 +97,7 @@ class SprintsController extends Controller
         $input = $this->request->validate([
             'start_date'         => 'required|date',
             'end_date'           => 'required|date',
+            'velocity'           => 'required|integer',
             'available_resource' => 'required',
             'available_points'   => 'required|integer',
             'planned_points'     => 'required|integer'
@@ -141,6 +142,7 @@ class SprintsController extends Controller
         $input = $this->request->validate([
             'start_date'       => 'date',
             'end_date'         => 'date',
+            'velocity'         => 'integer',
             'available_points' => 'integer',
             'planned_points'   => 'integer',
             'actual_points'    => 'integer',

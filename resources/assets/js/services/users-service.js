@@ -11,8 +11,8 @@ const defaultParams = {
 
 export default {
 
-  all(meta) {
-    const url = endpoint + this.formatParameters(meta)
+  all(params) {
+    const url = endpoint + this.formatParameters(params)
     return http.get(url)
   },
 

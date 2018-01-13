@@ -39,54 +39,40 @@
         label="Logical Points">
       </el-table-column>
     </el-table>
-    <sprint-create ref="sprintCreate" :velocity="velocity" @created="fetchSprints"></sprint-create>
-    <sprint-edit ref="sprintEdit" :velocity="velocity"></sprint-edit>
+    <sprint-create ref="sprintCreate" :velocity="velocity" :users="users" :projects="projects" />
+    <sprint-edit ref="sprintEdit" />
   </div>
 </template>
 
 <script>
-import sprint from '../services/sprint-service'
-import SprintCreateComponent from './SprintCreate.vue'
-import SprintEditComponent from './SprintEdit.vue'
-import FabComponent from './Fab.vue'
+import SprintCreate from './SprintCreate.vue'
+import SprintEdit from './SprintEdit.vue'
+import Fab from '../../../components/Fab.vue'
 
 export default {
   components: {
-    'sprint-create': SprintCreateComponent,
-    'sprint-edit': SprintEditComponent,
-    'fab': FabComponent
+    'sprint-create': SprintCreate,
+    'sprint-edit': SprintEdit,
+    'fab': Fab
   },
 
-  data () {
-    return {
-      sprints: []
+  props: {
+    sprints: {
+      type: Array,
+      required: true
+    },
+    velocity: {
+      type: Number,
+      required: true
+    },
+    users: {
+      type: Array,
+      required: true
+    },
+    projects: {
+      type: Array,
+      required: true
     }
-  },
-
-  computed: {
-    velocity: function() {
-      let total = 0
-      let count = 0
-
-      for (const sprint of this.sprints) {
-        if (count > 2) {
-          break
-        }
-
-        if (!sprint.logical_points) {
-          continue
-        }
-
-        total += sprint.logical_points
-        count ++
-      }
-
-      return Math.round(total / count)
-    }
-  },
-
-  mounted() {
-    this.fetchSprints()
   },
 
   methods: {
@@ -96,19 +82,13 @@ export default {
 
     openEditDialog(sprint) {
       this.$refs.sprintEdit.open(sprint)
-    },
-
-    fetchSprints() {
-      sprint.allWith('users,projects').then(response => {
-        this.sprints = response.data.sprints
-      })
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../../sass/variables";
+@import "../../../../sass/variables";
 
 .menu-section {
   display: flex;
