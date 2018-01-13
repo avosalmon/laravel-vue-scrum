@@ -19,6 +19,10 @@ const velocity = state => {
     count ++
   }
 
+  if (!total || !count) {
+    return 0;
+  }
+
   return Math.round(total / count)
 }
 

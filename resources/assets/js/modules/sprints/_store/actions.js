@@ -31,18 +31,18 @@ const createSprint = async ({ dispatch, commit }, data) => {
   dispatch('getSprints')
 }
 
-const updateSprint = async ({ commit }, data) => {
+const updateSprint = async ({ dispatch, commit }, data) => {
   const response = await sprints.update(data.sprint.id, data.sprint)
   let promises = []
 
   for (const user of data.users) {
-    promises.push(sprints.updateUser(createdSprint.id, user.userId, {
+    promises.push(sprints.updateUser(data.sprint.id, user.userId, {
       working_days: user.workingDays
     }))
   }
 
   for (const project of data.projects) {
-    promises.push(sprints.updateUser(createdSprint.id, project.projectId, {
+    promises.push(sprints.updateProject(data.sprint.id, project.projectId, {
       planned_points: project.plannedPoints,
       actual_points: project.actualPoints
     }))

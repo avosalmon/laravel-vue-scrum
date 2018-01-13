@@ -40,7 +40,7 @@
       </el-table-column>
     </el-table>
     <sprint-create ref="sprintCreate" :velocity="velocity" :users="users" :projects="projects" />
-    <sprint-edit ref="sprintEdit" :velocity="velocity" />
+    <sprint-edit ref="sprintEdit" />
   </div>
 </template>
 

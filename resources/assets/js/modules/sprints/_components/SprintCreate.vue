@@ -1,5 +1,6 @@
 <template>
-  <el-dialog title="Create New Sprint" custom-class="sprint-dialog" :visible.sync="dialogVisible" width="700px">
+  <el-dialog title="Create New Sprint" custom-class="sprint-dialog"
+    :visible.sync="dialogVisible" width="700px">
     <el-tabs>
       <el-tab-pane label="Dates">
         <p class="instruction">Select start date and end date.</p>
@@ -46,7 +47,6 @@
               <th>Project</th>
               <th>Planned Points</th>
               <th>Actual Points</th>
-              <th>Logical Points</th>
             </tr>
           </thead>
           <tbody>
@@ -61,12 +61,10 @@
                 </el-input-number>
               </td>
               <td>-</td>
-              <td>-</td>
             </tr>
             <tr class="total-row">
               <td>Total</td>
-              <td>{{ plannedPoints }}</td>
-              <td>-</td>
+              <td>{{ totalPlannedPoints }}</td>
               <td>-</td>
             </tr>
           </tbody>
@@ -86,8 +84,6 @@ import AvailablePoints from './AvailablePoints.vue'
 import sprint from '../../../services/sprints-service'
 
 export default {
-  name: 'sprint-create',
-
   components: {
     'avatar': Avatar,
     'available-points': AvailablePoints
@@ -127,7 +123,7 @@ export default {
         velocity: this.velocity,
         available_resource: this.availableResource,
         available_points: this.availablePoints,
-        planned_points: this.plannedPoints
+        planned_points: this.totalPlannedPoints
       }
 
       const data = {
@@ -206,7 +202,7 @@ export default {
       return Math.round(this.velocity * this.availableResource / 100)
     },
 
-    plannedPoints: function() {
+    totalPlannedPoints: function() {
       return this.form.projects.reduce((sum, project) => {
         return sum + project.plannedPoints;
       }, 0)
@@ -271,6 +267,7 @@ table {
 
   .total-row {
     border-top: 1px solid $gray-light;
+    font-weight: bold;
   }
 }
 
