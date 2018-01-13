@@ -63955,6 +63955,7 @@ exports.default = {
       var sprint = {
         start_date: new Date(this.form.dates[0]).toLocaleDateString(),
         end_date: new Date(this.form.dates[1]).toLocaleDateString(),
+        velocity: this.velocity,
         available_resource: this.availableResource,
         available_points: this.availablePoints,
         planned_points: this.plannedPoints
@@ -64080,7 +64081,6 @@ exports.default = {
     }
   }
 }; //
-//
 //
 //
 //
@@ -64492,24 +64492,22 @@ var render = function() {
                 _vm._v("Select start date and end date.")
               ]),
               _vm._v(" "),
-              _vm.form.dates.length
-                ? _c("el-date-picker", {
-                    staticClass: "datepicker",
-                    attrs: {
-                      type: "daterange",
-                      "range-separator": "To",
-                      "start-placeholder": "Start Date",
-                      "end-placeholder": "End Date"
-                    },
-                    model: {
-                      value: _vm.form.dates,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "dates", $$v)
-                      },
-                      expression: "form.dates"
-                    }
-                  })
-                : _vm._e()
+              _c("el-date-picker", {
+                staticClass: "datepicker",
+                attrs: {
+                  type: "daterange",
+                  "range-separator": "To",
+                  "start-placeholder": "Start Date",
+                  "end-placeholder": "End Date"
+                },
+                model: {
+                  value: _vm.form.dates,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form, "dates", $$v)
+                  },
+                  expression: "form.dates"
+                }
+              })
             ],
             1
           ),

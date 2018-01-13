@@ -124,6 +124,7 @@ export default {
       const sprint = {
         start_date: new Date(this.form.dates[0]).toLocaleDateString(),
         end_date: new Date(this.form.dates[1]).toLocaleDateString(),
+        velocity: this.velocity,
         available_resource: this.availableResource,
         available_points: this.availablePoints,
         planned_points: this.plannedPoints
