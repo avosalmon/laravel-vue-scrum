@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Create New Sprint" custom-class="sprint-dialog" :visible.sync="dialogVisible" width="700px">
+  <div>
     <el-tabs>
       <el-tab-pane label="Dates">
         <p class="instruction">Select start date and end date.</p>
@@ -16,15 +16,14 @@
         <p class="instruction">Set working days to each member.</p>
         <el-row>
           <el-col :span="12">
-            <div class="user-field" v-for="(user, index) in users" :key="user.id">
+            <div class="user-field" v-for="user in form.users" :key="user.id">
               <div class="user-profile">
                 <avatar :image-src="user.avatar_url"></avatar>
                 <span class="user-name">{{ user.display_name }}</span>
               </div>
               <el-input-number
                 class="number-input"
-                v-if="form.users.length"
-                v-model="form.users[index].workingDays"
+                v-model="user.workingDays"
                 :min="0" :max="10"
                 size="mini">
               </el-input-number>
@@ -50,13 +49,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(project, index) in projects" :key="project.id">
+            <tr v-for="project in form.projects" :key="project.id">
               <td>{{ project.name }}</td>
               <td>
                 <el-input-number
                   class="number-input"
-                  v-if="form.projects.length"
-                  v-model="form.projects[index].plannedPoints"
+                  v-model="project.plannedPoints"
                   :min="0" size="mini">
                 </el-input-number>
               </td>
@@ -75,9 +73,9 @@
     </el-tabs>
     <div slot="footer" class="dialog-footer">
       <el-button @click="close">CANCEL</el-button>
-      <el-button type="primary" @click="create">CREATE</el-button>
+      <el-button type="primary" @click="submit">SAVE</el-button>
     </div>
-  </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -86,8 +84,6 @@ import AvailablePoints from './AvailablePoints.vue'
 import sprint from '../../../services/sprints-service'
 
 export default {
-  name: 'sprint-create',
-
   components: {
     'avatar': Avatar,
     'available-points': AvailablePoints
@@ -98,19 +94,13 @@ export default {
       type: Number,
       required: true
     },
-    users: {
-      type: Array,
-      required: true
-    },
-    projects: {
-      type: Array,
-      required: true
+    sprint: {
+      type: Object
     }
   },
 
   data () {
     return {
-      dialogVisible: false,
       form: {
         dates: [],
         users: [],
@@ -120,7 +110,7 @@ export default {
   },
 
   methods: {
-    create() {
+    submit() {
       const sprint = {
         start_date: new Date(this.form.dates[0]).toLocaleDateString(),
         end_date: new Date(this.form.dates[1]).toLocaleDateString(),
@@ -135,26 +125,7 @@ export default {
         projects: this.form.projects
       }
 
-      this.$store.dispatch('$_sprints/createSprint', data)
-          .then(() => {
-            this.$message({
-              message: 'Sprint has been created!',
-              type: 'success',
-              duration: 5000
-            })
-
-            this.resetForm()
-            this.close()
-          })
-    },
-
-    open() {
-      this.initForm()
-      this.dialogVisible = true
-    },
-
-    close() {
-      this.dialogVisible = false
+      this.resetForm()
     },
 
     resetForm() {
@@ -163,33 +134,12 @@ export default {
         users: [],
         projects: []
       }
-    },
-
-    initForm() {
-      if (!this.form.users.length) {
-        for (const user of this.users) {
-          this.form.users.push({
-            userId: user.id,
-            workingDays: 10
-          })
-        }
-      }
-
-      if (!this.form.projects.length) {
-        for (const project of this.projects) {
-          this.form.projects.push({
-            projectId: project.id,
-            plannedPoints: 0,
-            actualPoints: null,
-          })
-        }
-      }
     }
   },
 
   computed: {
     availableResource: function() {
-      const maxWorkingDays   = 10 * this.users.length
+      const maxWorkingDays   = 10 * this.form.users.length
       const totalWorkingDays = this.form.users.reduce((sum, user) => {
         return sum + user.workingDays;
       }, 0)
