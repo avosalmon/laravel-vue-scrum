@@ -32,7 +32,25 @@ const createSprint = async ({ dispatch, commit }, data) => {
 }
 
 const updateSprint = ({ commit }, data) => {
+  const response = await sprints.update(data.sprint.id, data.sprint)
+  let promises = []
 
+  for (const user of data.users) {
+    promises.push(sprints.updateUser(createdSprint.id, user.userId, {
+      working_days: user.workingDays
+    }))
+  }
+
+  for (const project of data.projects) {
+    promises.push(sprints.updateUser(createdSprint.id, project.projectId, {
+      planned_points: project.plannedPoints,
+      actual_points: project.actualPoints
+    }))
+  }
+
+  await Promise.all(promises)
+
+  dispatch('getSprints')
 }
 
 const destroySprint = ({ commit }, id) => {

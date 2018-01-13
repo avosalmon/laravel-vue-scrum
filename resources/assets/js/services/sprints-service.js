@@ -39,9 +39,19 @@ export default {
     return http.post(url, data)
   },
 
+  updateUser(sprintId, userId, data) {
+    const url = `${endpoint}/${sprintId}/users/${userId}`
+    return http.put(url, data)
+  },
+
   attachProject(sprintId, projectId, data) {
     const url = `${endpoint}/${sprintId}/projects/${projectId}`
     return http.post(url, data)
+  },
+
+  updateProject(sprintId, projectId, data) {
+    const url = `${endpoint}/${sprintId}/projects/${projectId}`
+    return http.put(url, data)
   },
 
   formatParameters(params) {
