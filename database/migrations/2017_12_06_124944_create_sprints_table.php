@@ -17,6 +17,7 @@ class CreateSprintsTable extends Migration
             $table->increments('id');
             $table->date('start_date');
             $table->date('end_date');
+            $table->integer('velocity');
             $table->decimal('available_resource', 5, 2);
             $table->integer('available_points');
             $table->integer('planned_points');
