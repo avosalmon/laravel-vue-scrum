@@ -5,7 +5,7 @@
       <span class="label">Team's Velocity</span>
       <span class="value">{{ velocity }}</span>
     </div>
-    <velocity-chart :chart-data="chartData"></velocity-chart>
+    <velocity-chart :chart-data="chartData" :options="chartOptions" :height="400"></velocity-chart>
     <el-table
       :data="sprints"
       row-class-name="clickable"
@@ -78,6 +78,33 @@ export default {
     }
   },
 
+  data () {
+    return {
+      chartOptions: {
+        // scales: {
+        //   yAxes: [{
+        //     ticks: {
+        //       beginAtZero: true
+        //     },
+        //     gridLines: {
+        //       display: true
+        //     }
+        //   }],
+        //   xAxes: [ {
+        //     gridLines: {
+        //       display: false
+        //     }
+        //   }]
+        // },
+        // legend: {
+        //   display: true
+        // },
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    }
+  },
+
   methods: {
     openCreateDialog() {
       this.$refs.sprintCreate.open()
@@ -94,8 +121,10 @@ export default {
         labels: [],
         datasets: [
           {
-            label: 'Velocity',
-            backgroundColor: '#f87979',
+            label: 'Logical Points',
+            borderColor: '#f87979',
+            pointBackgroundColor: 'white',
+            fill: false,
             data: []
           }
         ]

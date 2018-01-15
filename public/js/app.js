@@ -81297,6 +81297,34 @@ exports.default = {
     }
   },
 
+  data: function data() {
+    return {
+      chartOptions: {
+        // scales: {
+        //   yAxes: [{
+        //     ticks: {
+        //       beginAtZero: true
+        //     },
+        //     gridLines: {
+        //       display: true
+        //     }
+        //   }],
+        //   xAxes: [ {
+        //     gridLines: {
+        //       display: false
+        //     }
+        //   }]
+        // },
+        // legend: {
+        //   display: true
+        // },
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    };
+  },
+
+
   methods: {
     openCreateDialog: function openCreateDialog() {
       this.$refs.sprintCreate.open();
@@ -81312,7 +81340,9 @@ exports.default = {
         labels: [],
         datasets: [{
           label: 'Velocity',
-          backgroundColor: '#f87979',
+          borderColor: '#f87979',
+          pointBackgroundColor: 'white',
+          fill: false,
           data: []
         }]
       };
@@ -96879,7 +96909,13 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("velocity-chart", { attrs: { "chart-data": _vm.chartData } }),
+      _c("velocity-chart", {
+        attrs: {
+          "chart-data": _vm.chartData,
+          options: _vm.chartOptions,
+          height: 400
+        }
+      }),
       _vm._v(" "),
       _c(
         "el-table",
