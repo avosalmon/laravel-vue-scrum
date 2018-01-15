@@ -5,6 +5,7 @@
       <span class="label">Team's Velocity</span>
       <span class="value">{{ velocity }}</span>
     </div>
+    <velocity-chart :chart-data="chartData"></velocity-chart>
     <el-table
       :data="sprints"
       row-class-name="clickable"
@@ -47,12 +48,14 @@
 <script>
 import SprintCreate from './SprintCreate.vue'
 import SprintEdit from './SprintEdit.vue'
+import VelocityChart from './VelocityChart.vue'
 import Fab from '../../../components/Fab.vue'
 
 export default {
   components: {
     'sprint-create': SprintCreate,
     'sprint-edit': SprintEdit,
+    'velocity-chart': VelocityChart,
     'fab': Fab
   },
 
@@ -82,6 +85,33 @@ export default {
 
     openEditDialog(sprint) {
       this.$refs.sprintEdit.open(sprint)
+    }
+  },
+
+  computed: {
+    chartData: function() {
+      let data = {
+        labels: [],
+        datasets: [
+          {
+            label: 'Velocity',
+            backgroundColor: '#f87979',
+            data: []
+          }
+        ]
+      }
+
+      for (const sprint of this.sprints) {
+        if (!sprint.logical_points) {
+          continue
+        }
+
+        const label = `${sprint.start_date}-${sprint.end_date}`
+        data.labels.push(label)
+        data.datasets[0].data.push(sprint.logical_points)
+      }
+
+      return data
     }
   }
 };
