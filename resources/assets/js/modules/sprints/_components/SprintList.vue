@@ -5,11 +5,16 @@
       <span class="label">Team's Velocity</span>
       <span class="value">{{ velocity }}</span>
     </div>
+    <velocity-chart :sprints="sprints"></velocity-chart>
     <el-table
       :data="sprints"
       row-class-name="clickable"
       style="width: 100%"
       @row-click="openEditDialog($event)">
+      <el-table-column
+        prop="id"
+        label="ID">
+      </el-table-column>
       <el-table-column
         prop="start_date"
         label="Start Date">
@@ -47,12 +52,14 @@
 <script>
 import SprintCreate from './SprintCreate.vue'
 import SprintEdit from './SprintEdit.vue'
+import VelocityChart from './VelocityChart.vue'
 import Fab from '../../../components/Fab.vue'
 
 export default {
   components: {
     'sprint-create': SprintCreate,
     'sprint-edit': SprintEdit,
+    'velocity-chart': VelocityChart,
     'fab': Fab
   },
 
@@ -89,10 +96,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../../../sass/variables";
-
-.menu-section {
-  display: flex;
-  justify-content: space-between;
+.velocity-chart {
+  margin-bottom: 50px;
 }
 
 .velocity {
