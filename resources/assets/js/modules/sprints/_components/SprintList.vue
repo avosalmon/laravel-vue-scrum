@@ -5,7 +5,7 @@
       <span class="label">Team's Velocity</span>
       <span class="value">{{ velocity }}</span>
     </div>
-    <velocity-chart :chart-data="chartData" :options="chartOptions" :height="300" css-classes="velocity-chart"></velocity-chart>
+    <velocity-chart :sprints="sprints"></velocity-chart>
     <el-table
       :data="sprints"
       row-class-name="clickable"
@@ -82,15 +82,6 @@ export default {
     }
   },
 
-  data () {
-    return {
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    }
-  },
-
   methods: {
     openCreateDialog() {
       this.$refs.sprintCreate.open()
@@ -98,38 +89,6 @@ export default {
 
     openEditDialog(sprint) {
       this.$refs.sprintEdit.open(sprint)
-    }
-  },
-
-  computed: {
-    chartData: function() {
-      let data = {
-        labels: [],
-        datasets: [
-          {
-            label: 'Logical Points',
-            borderColor: '#f87979',
-            pointBackgroundColor: 'white',
-            fill: false,
-            data: []
-          }
-        ]
-      }
-
-      for (const sprint of this.sprints) {
-        if (!sprint.logical_points) {
-          continue
-        }
-
-        const startDate = sprint.start_date.replace(/-/g, '')
-        const endDate   = sprint.end_date.replace(/-/g, '')
-        const label     = `${startDate}-${endDate}`
-
-        data.labels.unshift(label)
-        data.datasets[0].data.unshift(sprint.logical_points)
-      }
-
-      return data
     }
   }
 };
