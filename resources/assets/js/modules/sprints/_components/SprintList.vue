@@ -5,7 +5,7 @@
       <span class="label">Team's Velocity</span>
       <span class="value">{{ velocity }}</span>
     </div>
-    <velocity-chart :chart-data="chartData" :options="chartOptions" :height="400"></velocity-chart>
+    <velocity-chart :chart-data="chartData" :options="chartOptions" :height="300" css-classes="velocity-chart"></velocity-chart>
     <el-table
       :data="sprints"
       row-class-name="clickable"
@@ -81,24 +81,6 @@ export default {
   data () {
     return {
       chartOptions: {
-        // scales: {
-        //   yAxes: [{
-        //     ticks: {
-        //       beginAtZero: true
-        //     },
-        //     gridLines: {
-        //       display: true
-        //     }
-        //   }],
-        //   xAxes: [ {
-        //     gridLines: {
-        //       display: false
-        //     }
-        //   }]
-        // },
-        // legend: {
-        //   display: true
-        // },
         responsive: true,
         maintainAspectRatio: false
       }
@@ -135,9 +117,12 @@ export default {
           continue
         }
 
-        const label = `${sprint.start_date}-${sprint.end_date}`
-        data.labels.push(label)
-        data.datasets[0].data.push(sprint.logical_points)
+        const startDate = sprint.start_date.replace(/-/g, '')
+        const endDate   = sprint.end_date.replace(/-/g, '')
+        const label     = `${startDate}-${endDate}`
+
+        data.labels.unshift(label)
+        data.datasets[0].data.unshift(sprint.logical_points)
       }
 
       return data
@@ -148,10 +133,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../../../sass/variables";
-
-.menu-section {
-  display: flex;
-  justify-content: space-between;
+.velocity-chart {
+  margin-bottom: 50px;
 }
 
 .velocity {

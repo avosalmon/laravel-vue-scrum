@@ -81184,7 +81184,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, "\n.menu-section[data-v-f73badfc] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.velocity .label[data-v-f73badfc] {\n  font-weight: 600;\n  font-size: 18px;\n  margin-right: 5px;\n}\n.velocity .value[data-v-f73badfc] {\n  display: inline-block;\n  background: #40B883;\n  color: #fff;\n  border-radius: 50%;\n  width: 30px;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n}\n.fab[data-v-f73badfc] {\n  position: fixed;\n  bottom: 30px;\n  right: 30px;\n  z-index: 999;\n}\n", ""]);
+exports.push([module.i, "\n.velocity-chart[data-v-f73badfc] {\n  margin-bottom: 50px;\n}\n.velocity .label[data-v-f73badfc] {\n  font-weight: 600;\n  font-size: 18px;\n  margin-right: 5px;\n}\n.velocity .value[data-v-f73badfc] {\n  display: inline-block;\n  background: #40B883;\n  color: #fff;\n  border-radius: 50%;\n  width: 30px;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n}\n.fab[data-v-f73badfc] {\n  position: fixed;\n  bottom: 30px;\n  right: 30px;\n  z-index: 999;\n}\n", ""]);
 
 // exports
 
@@ -81300,24 +81300,6 @@ exports.default = {
   data: function data() {
     return {
       chartOptions: {
-        // scales: {
-        //   yAxes: [{
-        //     ticks: {
-        //       beginAtZero: true
-        //     },
-        //     gridLines: {
-        //       display: true
-        //     }
-        //   }],
-        //   xAxes: [ {
-        //     gridLines: {
-        //       display: false
-        //     }
-        //   }]
-        // },
-        // legend: {
-        //   display: true
-        // },
         responsive: true,
         maintainAspectRatio: false
       }
@@ -81339,7 +81321,7 @@ exports.default = {
       var data = {
         labels: [],
         datasets: [{
-          label: 'Velocity',
+          label: 'Logical Points',
           borderColor: '#f87979',
           pointBackgroundColor: 'white',
           fill: false,
@@ -81359,9 +81341,12 @@ exports.default = {
             continue;
           }
 
-          var label = sprint.start_date + '-' + sprint.end_date;
-          data.labels.push(label);
-          data.datasets[0].data.push(sprint.logical_points);
+          var startDate = sprint.start_date.replace(/-/g, '');
+          var endDate = sprint.end_date.replace(/-/g, '');
+          var label = startDate + '-' + endDate;
+
+          data.labels.unshift(label);
+          data.datasets[0].data.unshift(sprint.logical_points);
         }
       } catch (err) {
         _didIteratorError = true;
@@ -96913,7 +96898,8 @@ var render = function() {
         attrs: {
           "chart-data": _vm.chartData,
           options: _vm.chartOptions,
-          height: 400
+          height: 300,
+          "css-classes": "velocity-chart"
         }
       }),
       _vm._v(" "),
