@@ -13,4 +13,5 @@
 
 Route::get('/{any}', function () {
     return view('app');
-})->where('any', '.*');
+})->where('any', '.*')
+->middleware('auth.very_basic');
